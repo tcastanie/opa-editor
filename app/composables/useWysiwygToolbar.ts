@@ -5,8 +5,8 @@ type Item = EditorToolbarItem<WysiwygHandlers>
 
 /**
  * Un item par clé du manifeste. Les clés qui ouvrent un panneau (lien, image,
- * média, couleurs, polices…) déclarent un `slot` : `WysiwygToolbar.vue` y place
- * le composant correspondant.
+ * couleurs, taille de police…) déclarent un `slot` : `WysiwygToolbar.vue` y
+ * place le composant correspondant.
  */
 const BUTTONS = {
   // history
@@ -22,13 +22,9 @@ const BUTTONS = {
   superscript: { 'kind': 'superscript', 'icon': 'i-tabler-superscript', 'tooltip': { text: 'Exposant' }, 'aria-label': 'Exposant' },
 
   // style
-  fontfamily: { slot: 'fontFamily', icon: 'i-tabler-typography' },
   fontsize: { slot: 'fontSize', icon: 'i-tabler-text-size' },
   forecolor: { slot: 'foreColor', icon: 'i-tabler-text-color' },
   backcolor: { slot: 'backColor', icon: 'i-tabler-highlight' },
-
-  // customFormats
-  styles: { slot: 'styles', icon: 'i-tabler-brush' },
 
   // heading
   h1: { kind: 'heading', level: 1, icon: 'i-tabler-h-1', tooltip: { text: 'Titre 1' }, label: 'Titre 1' },
@@ -45,10 +41,6 @@ const BUTTONS = {
   alignjustify: { kind: 'textAlign', align: 'justify', icon: 'i-tabler-align-justified', label: 'Justifier' },
   alignnone: { kind: 'unsetTextAlign', icon: 'i-tabler-align-left', label: 'Aucun alignement' },
 
-  // direction
-  ltr: { 'kind': 'direction', 'direction': 'ltr', 'icon': 'i-tabler-pilcrow-right', 'tooltip': { text: 'Gauche → Droite' }, 'aria-label': 'Gauche vers droite' },
-  rtl: { 'kind': 'direction', 'direction': 'rtl', 'icon': 'i-tabler-pilcrow-left', 'tooltip': { text: 'Droite → Gauche' }, 'aria-label': 'Droite vers gauche' },
-
   // list
   numlist: { 'kind': 'orderedList', 'icon': 'i-tabler-list-numbers', 'tooltip': { text: 'Liste numérotée' }, 'aria-label': 'Liste numérotée' },
   bullist: { 'kind': 'bulletList', 'icon': 'i-tabler-list', 'tooltip': { text: 'Liste à puces' }, 'aria-label': 'Liste à puces' },
@@ -63,9 +55,7 @@ const BUTTONS = {
   customLink: { slot: 'link', icon: 'i-tabler-link' },
   unlink: { 'kind': 'unlink', 'icon': 'i-tabler-unlink', 'tooltip': { text: 'Supprimer le lien' }, 'aria-label': 'Supprimer le lien' },
   customImage: { slot: 'image', icon: 'i-tabler-photo' },
-  customMedia: { slot: 'media', icon: 'i-tabler-movie' },
   table: { slot: 'table', icon: 'i-tabler-table' },
-  pagebreak: { 'kind': 'pageBreak', 'icon': 'i-tabler-separator-horizontal', 'tooltip': { text: 'Saut de page' }, 'aria-label': 'Saut de page' },
   insertdatetime: { slot: 'dateTime', icon: 'i-tabler-clock-plus' },
 
   // code
@@ -86,7 +76,6 @@ const BUTTONS = {
   removeformat: { 'kind': 'removeFormat', 'icon': 'i-tabler-clear-formatting', 'tooltip': { text: 'Supprimer le formatage' }, 'aria-label': 'Supprimer le formatage' },
 
   // view
-  visualaid: { 'kind': 'visualAid', 'icon': 'i-tabler-grid-3x3', 'tooltip': { text: 'Aides visuelles' }, 'aria-label': 'Aides visuelles' },
   fullscreen: { 'kind': 'fullscreen', 'icon': 'i-tabler-maximize', 'tooltip': { text: 'Plein écran' }, 'aria-label': 'Plein écran' },
 } as Record<WysiwygButtonKey, Item>
 

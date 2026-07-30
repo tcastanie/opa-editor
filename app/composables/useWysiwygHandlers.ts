@@ -56,10 +56,7 @@ export interface UseWysiwygHandlersOptions {
   onOpenSourceCode?: () => void
   /** Bascule le mode plein écran. */
   onToggleFullscreen?: () => void
-  /** Bascule les aides visuelles. */
-  onToggleVisualAid?: () => void
   fullscreen?: Ref<boolean>
-  visualAid?: Ref<boolean>
 }
 
 /**
@@ -103,12 +100,6 @@ export function useWysiwygHandlers(options: UseWysiwygHandlersOptions = {}) {
         && !editor.isActive({ textAlign: 'justify' }),
     },
 
-    direction: {
-      canExecute: (editor, cmd) => editor.can().setDirection(cmd.direction),
-      execute: (editor, cmd) => editor.chain().focus().setDirection(cmd.direction),
-      isActive: (editor, cmd) => editor.isActive({ dir: cmd.direction }),
-    },
-
     indent: {
       canExecute: editor => editor.can().sinkListItem(activeListItemType(editor)),
       execute: editor => editor.chain().focus().sinkListItem(activeListItemType(editor)),
@@ -121,12 +112,6 @@ export function useWysiwygHandlers(options: UseWysiwygHandlersOptions = {}) {
       isActive: () => false,
     },
 
-    pageBreak: {
-      canExecute: editor => editor.can().insertPageBreak(),
-      execute: editor => editor.chain().focus().insertPageBreak(),
-      isActive: editor => editor.isActive('pageBreak'),
-    },
-
     unlink: {
       canExecute: editor => editor.isActive('link'),
       execute: editor => editor.chain().focus().extendMarkRange('link').unsetLink().setMeta('preventAutolink', true),
@@ -134,13 +119,10 @@ export function useWysiwygHandlers(options: UseWysiwygHandlersOptions = {}) {
       isDisabled: editor => !editor.isActive('link'),
     },
 
-    /**
-     * `removeformat` du manifeste : comme `clearFormatting` de Nuxt UI mais en
-     * réinitialisant aussi la direction du texte.
-     */
+    /** `removeformat` du manifeste : équivalent de `clearFormatting` de Nuxt UI. */
     removeFormat: {
       canExecute: editor => editor.can().unsetAllMarks() || editor.can().clearNodes(),
-      execute: editor => editor.chain().focus().unsetAllMarks().clearNodes().unsetDirection(),
+      execute: editor => editor.chain().focus().unsetAllMarks().clearNodes(),
       isActive: () => false,
     },
 
@@ -212,15 +194,6 @@ export function useWysiwygHandlers(options: UseWysiwygHandlersOptions = {}) {
         return editor.chain()
       },
       isActive: () => options.fullscreen?.value ?? false,
-    },
-
-    visualAid: {
-      canExecute: () => true,
-      execute: (editor) => {
-        options.onToggleVisualAid?.()
-        return editor.chain()
-      },
-      isActive: () => options.visualAid?.value ?? false,
     },
 
     /** Insère un tableau 3×3 avec ligne d'en-tête. */

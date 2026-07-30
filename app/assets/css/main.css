@@ -19,77 +19,6 @@ html.dark .tiptap .shiki span {
    Template WYSIWYG
    -------------------------------------------------------------------------*/
 
-/* Saut de page : invisible à l'écran, réel à l'impression. */
-.tiptap .page-break {
-  break-after: page;
-  page-break-after: always;
-  height: 0;
-  margin: 1.5rem 0;
-  border-top: 2px dashed var(--ui-border-accented);
-  position: relative;
-}
-
-.tiptap .page-break::after {
-  content: "Saut de page";
-  position: absolute;
-  top: -0.75rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0 0.5rem;
-  font-size: 0.6875rem;
-  color: var(--ui-text-muted);
-  background: var(--ui-bg);
-}
-
-/*
- * Aides visuelles (`visualaid`) : matérialise ce qui n'a pas de rendu propre —
- * cellules sans bordure, ancres, sauts de page.
- */
-.editor-visual-aid .tiptap table td,
-.editor-visual-aid .tiptap table th {
-  outline: 1px dashed var(--ui-border-accented);
-  outline-offset: -1px;
-}
-
-.editor-visual-aid .tiptap [data-type="page-break"] {
-  border-top-style: solid;
-  border-top-color: var(--ui-color-primary-500);
-}
-
-.editor-visual-aid .tiptap p:empty::before {
-  content: "¶";
-  color: var(--ui-text-dimmed);
-}
-
-/* Formats personnalisés de démonstration (`customFormats` du manifeste). */
-.tiptap .format-lead {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  color: var(--ui-text-toned);
-}
-
-.tiptap .format-note,
-.tiptap .format-warning {
-  border-inline-start: 3px solid;
-  padding: 0.75rem 1rem;
-  border-radius: 0.375rem;
-}
-
-.tiptap .format-note {
-  border-color: var(--ui-color-primary-500);
-  background: color-mix(in oklab, var(--ui-color-primary-500) 8%, transparent);
-}
-
-.tiptap .format-warning {
-  border-color: var(--ui-color-warning-500);
-  background: color-mix(in oklab, var(--ui-color-warning-500) 8%, transparent);
-}
-
-.tiptap .format-small {
-  font-size: 0.8125rem;
-  color: var(--ui-text-muted);
-}
-
 /* Poignées de redimensionnement des colonnes (`Table` resizable). */
 .tiptap .column-resize-handle {
   position: absolute;
@@ -103,10 +32,4 @@ html.dark .tiptap .shiki span {
 
 .tiptap.resize-cursor {
   cursor: col-resize;
-}
-
-@media print {
-  .tiptap .page-break::after {
-    display: none;
-  }
 }

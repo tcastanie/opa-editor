@@ -20,24 +20,10 @@ defineProps<{
     :items="items"
     class="flex-wrap gap-y-1 p-1.5 border-b border-default bg-default sticky top-0 z-10"
   >
-    <template #fontFamily>
-      <WysiwygFontMenu
-        :editor="editor"
-        label="Police"
-        attr="fontFamily"
-        :items="fontFamilies"
-        preview-font
-        :width="wysiwygWidths.fontFamilyDropdown"
-      />
-    </template>
-
     <template #fontSize>
-      <WysiwygFontMenu
+      <WysiwygFontSizeMenu
         :editor="editor"
-        label="Taille de police"
-        attr="fontSize"
         :items="fontSizes"
-        :width="wysiwygWidths.fontSizeDropdown"
       />
     </template>
 
@@ -59,13 +45,6 @@ defineProps<{
       />
     </template>
 
-    <template #styles>
-      <WysiwygStylesMenu
-        :editor="editor"
-        :width="wysiwygWidths.customFormatsDropdown"
-      />
-    </template>
-
     <template #link>
       <WysiwygLinkPopover :editor="editor" />
     </template>
@@ -75,10 +54,6 @@ defineProps<{
         :editor="editor"
         :on-upload="onUpload"
       />
-    </template>
-
-    <template #media>
-      <WysiwygMediaPopover :editor="editor" />
     </template>
 
     <template #table>

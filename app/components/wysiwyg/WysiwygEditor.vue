@@ -9,9 +9,6 @@ import { CharacterCount } from '@tiptap/extensions'
 import { CellSelection } from '@tiptap/pm/tables'
 import { useEventListener } from '@vueuse/core'
 import { CustomImage } from '~/utils/tiptap/custom-image'
-import { Direction } from '~/utils/tiptap/direction'
-import { Media } from '~/utils/tiptap/media'
-import { PageBreak } from '~/utils/tiptap/page-break'
 import { PreKeymap } from '~/utils/tiptap/pre-keymap'
 import { PreservedAttributes } from '~/utils/tiptap/preserved-attributes'
 
@@ -36,7 +33,6 @@ const model = defineModel<string>({ default: '' })
 const editorRef = useTemplateRef('editorRef')
 
 const fullscreen = ref(false)
-const visualAid = ref(false)
 const sourceCodeOpen = ref(false)
 
 const characters = ref(0)
@@ -44,24 +40,19 @@ const words = ref(0)
 
 const handlers = useWysiwygHandlers({
   fullscreen,
-  visualAid,
   onOpenSourceCode: () => {
     sourceCodeOpen.value = true
   },
   onToggleFullscreen: () => {
     fullscreen.value = !fullscreen.value
   },
-  onToggleVisualAid: () => {
-    visualAid.value = !visualAid.value
-  },
 })
 
 const { toolbarItems } = useWysiwygToolbar(() => props.toolbarKeys)
 
 const extensions = [
-  TextStyleKit.configure({ lineHeight: false }),
+  TextStyleKit.configure({ lineHeight: false, fontFamily: false }),
   TextAlign.configure({ types: ['heading', 'paragraph', 'blockquote', 'image'] }),
-  Direction,
   Subscript,
   Superscript,
   CustomImage.configure({
@@ -71,8 +62,6 @@ const extensions = [
       class: 'inline-block!',
     },
   }),
-  Media,
-  PageBreak,
   TableKit.configure({ table: { resizable: true } }),
   PreKeymap,
   CharacterCount,
@@ -109,7 +98,6 @@ defineExpose({
     :class="[
       'flex flex-col rounded-lg ring-2 ring-default bg-default overflow-hidden',
       fullscreen && 'fixed inset-0 z-50 ring-0',
-      visualAid && 'editor-visual-aid',
     ]"
   >
     <UEditor
@@ -170,7 +158,7 @@ defineExpose({
           { icon: 'i-tabler-trash', tooltip: { text: 'Supprimer' }, onClick: () => editor.chain().focus().deleteSelection().run() },
         ]]"
         layout="bubble"
-        :should-show="({ editor: current, view }: any) => (current.isActive('image') || current.isActive('media')) && view.hasFocus()"
+        :should-show="({ editor: current, view }: any) => current.isActive('image') && view.hasFocus()"
       />
     </UEditor>
 
