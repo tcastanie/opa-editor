@@ -2,9 +2,10 @@
 import type { Editor } from '@tiptap/vue-3'
 
 /**
- * `code` du manifeste : édition du HTML brut. Ce que vous voyez ici est le HTML
- * *après* passage dans le schéma TipTap — tout ce qu'aucune extension ne
- * déclare a déjà été écarté, y compris à la réapplication.
+ * Édition du HTML brut, partagée par les deux éditeurs (`code` du manifeste
+ * côté WYSIWYG). Ce que vous voyez ici est le HTML *après* passage dans le
+ * schéma TipTap — tout ce qu'aucune extension ne déclare a déjà été écarté,
+ * y compris à la réapplication.
  */
 const { editor } = defineProps<{
   editor: Editor

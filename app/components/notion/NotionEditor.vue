@@ -9,8 +9,9 @@ import { CodeBlockShiki } from 'tiptap-extension-code-block-shiki'
 import { ImageUpload } from './ImageUploadExtension'
 
 /**
- * Ce composant, ses frères du dossier `notion/` et les
- * composables `useNotion*` suffisent à le porter dans un autre projet.
+ * Ce composant, ses frères du dossier `notion/`, les composables `useNotion*`
+ * et les pièces partagées avec l'éditeur WYSIWYG (`EditorSourceCodeModal`,
+ * `app/utils/date-time.ts`) suffisent à le porter dans un autre projet.
  */
 const { onUpload, mentions = [], placeholder = 'Écrivez, ou tapez « / » pour les commandes…' } = defineProps<{
   /** Point d'extension pour l'envoi de fichiers. Voir `useEditorUpload`. */
@@ -23,6 +24,8 @@ const model = defineModel<string>({ default: '' })
 
 provide('editorUploadHandler', computed(() => onUpload))
 
+const sourceCodeOpen = ref(false)
+
 const customHandlers = {
   imageUpload: {
     canExecute: (editor: Editor) => editor.can().insertContent({ type: 'imageUpload' }),
@@ -34,6 +37,25 @@ const customHandlers = {
     canExecute: (editor: Editor) => editor.can().insertTable({ rows: 3, cols: 3, withHeaderRow: true }),
     execute: (editor: Editor) => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }),
     isActive: (editor: Editor) => editor.isActive('table'),
+    isDisabled: undefined,
+  },
+  // Le format vient de l'item du menu ; la date, elle, est celle de l'insertion.
+  dateTime: {
+    canExecute: (editor: Editor) => editor.can().insertContent(' '),
+    execute: (editor: Editor, cmd?: { format?: DateTimeFormat['format'] }) => {
+      return editor.chain().focus().insertContent(cmd?.format?.(new Date()) ?? '')
+    },
+    isActive: () => false,
+    isDisabled: undefined,
+  },
+  // Ouvre la modale ; la chaîne renvoyée laisse le document intact.
+  sourceCode: {
+    canExecute: () => true,
+    execute: (editor: Editor) => {
+      sourceCodeOpen.value = true
+      return editor.chain()
+    },
+    isActive: () => false,
     isDisabled: undefined,
   },
 } satisfies EditorCustomHandlers
@@ -78,8 +100,14 @@ const extensions = [
       <UEditorToolbar
         :editor="editor"
         :items="toolbarItems"
+        size="lg"
       />
     </div>
+
+    <EditorSourceCodeModal
+      v-model:open="sourceCodeOpen"
+      :editor="editor"
+    />
 
     <UEditorToolbar
       :editor="editor"

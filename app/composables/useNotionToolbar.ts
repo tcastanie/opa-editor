@@ -13,10 +13,21 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
     'tooltip': { text: 'Rétablir' },
     'aria-label': 'Rétablir',
   }], [{
-    kind: 'imageUpload',
-    label: 'Image',
-    icon: 'i-tabler-photo-plus',
-    tooltip: { text: 'Ajouter une image' },
+    'kind': 'imageUpload',
+    'aria-label': 'Image',
+    'icon': 'i-tabler-photo-plus',
+    'tooltip': { text: 'Ajouter une image' },
+  }, {
+    'icon': 'i-tabler-clock-plus',
+    'tooltip': { text: 'Insérer date/heure' },
+    'aria-label': 'Date/heure',
+    'content': { align: 'end' },
+    'items': [dateTimeMenuItems().map(item => ({ kind: 'dateTime' as const, ...item }))],
+  }], [{
+    'kind': 'sourceCode',
+    'aria-label': 'Code source',
+    'icon': 'i-tabler-html',
+    'tooltip': { text: 'Voir le code source' },
   }]]
 
   const bubbleToolbarItems: EditorToolbarItem<T>[][] = [[{

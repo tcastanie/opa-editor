@@ -2,8 +2,9 @@
  * Transcription du manifeste `wysiwyg-manifest.yaml` (Directus -> TipTap).
  *
  * Ce fichier ne contient que des **données** : les groupes, leur priorité et
- * leur épinglage, les tailles de police et les formats de date. La
- * construction des items de barre d'outils vit dans `useWysiwygToolbar`.
+ * leur épinglage, et les tailles de police. La construction des items de barre
+ * d'outils vit dans `useWysiwygToolbar` ; les formats de date, partagés avec
+ * l'éditeur notion, vivent dans `app/utils/date-time.ts`.
  */
 
 export type WysiwygButtonKey
@@ -79,12 +80,3 @@ export const fontSizes: FontOption[] = [
   { label: '36', value: '36px' },
   { label: '48', value: '48px' },
 ]
-
-/** Formats proposés par le bouton `insertdatetime`. */
-export const dateTimeFormats = [
-  { label: 'Date courte', format: (d: Date) => d.toLocaleDateString('fr-FR') },
-  { label: 'Date longue', format: (d: Date) => d.toLocaleDateString('fr-FR', { dateStyle: 'full' }) },
-  { label: 'Heure', format: (d: Date) => d.toLocaleTimeString('fr-FR', { timeStyle: 'short' }) },
-  { label: 'Date et heure', format: (d: Date) => d.toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' }) },
-  { label: 'ISO 8601', format: (d: Date) => d.toISOString() },
-] as const

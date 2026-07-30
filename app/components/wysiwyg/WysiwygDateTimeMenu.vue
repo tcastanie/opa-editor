@@ -6,19 +6,13 @@ const { editor } = defineProps<{
   editor: Editor
 }>()
 
-const menuItems = computed(() => {
-  const now = new Date()
-
-  return dateTimeFormats.map(entry => ({
-    label: entry.label,
-    kbds: undefined,
-    onSelect: () => {
-      editor.chain().focus().insertContent(entry.format(new Date())).run()
-    },
-    // Aperçu figé au moment du rendu du menu : suffisant pour se repérer.
-    description: entry.format(now),
-  }))
-})
+const menuItems = computed(() => dateTimeMenuItems().map(entry => ({
+  label: entry.label,
+  description: entry.description,
+  onSelect: () => {
+    editor.chain().focus().insertContent(entry.format(new Date())).run()
+  },
+})))
 </script>
 
 <template>
