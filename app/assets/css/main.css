@@ -1,14 +1,6 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-:root {
-  --ui-bg: white;
-}
-
-.dark {
-  --ui-bg: black;
-}
-
 html.dark .tiptap .shiki,
 html.dark .tiptap .shiki span {
   color: var(--shiki-dark) !important;
@@ -18,6 +10,14 @@ html.dark .tiptap .shiki span {
 /* ---------------------------------------------------------------------------
    Médias (les deux templates)
    -------------------------------------------------------------------------*/
+
+.tiptap.ProseMirror-hideselection {
+  caret-color: var(--ui-bg);
+}
+
+.tiptap.ProseMirror-hideselection *::selection {
+  background-color: var(--ui-bg);
+}
 
 .tiptap video,
 .tiptap audio {
@@ -37,8 +37,6 @@ html.dark .tiptap .shiki span {
   outline-offset: 2px;
 }
 
-/* Les attributs `width` / `height` du nœud `youtube` servent au HTML sérialisé ;
-   dans l'éditeur, l'iframe suit la largeur disponible en 16/9. */
 .tiptap div[data-youtube-video] {
   margin-block: 1em;
 }
@@ -50,8 +48,6 @@ html.dark .tiptap .shiki span {
   aspect-ratio: 16 / 9;
   border: none;
   border-radius: var(--ui-radius);
-  /* Sans ça l'iframe avale le clic et le bloc devient impossible à
-     sélectionner : la lecture n'est rendue au lecteur qu'une fois sélectionné. */
   pointer-events: none;
 }
 

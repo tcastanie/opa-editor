@@ -20,6 +20,7 @@ export const editorYoutubePreset = {
   embedLabel: 'Collez le lien d\'une vidéo YouTube',
   openLabel: 'Ouvrir sur YouTube',
   icon: 'i-tabler-brand-youtube',
+  formats: 'youtube.com ou youtu.be',
   placeholder: 'https://www.youtube.com/watch?v=…',
   /** Message affiché quand le lien collé n'est pas exploitable. */
   invalidMessage: 'Ce lien n\'est pas une vidéo YouTube.',
