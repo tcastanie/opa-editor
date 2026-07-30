@@ -73,6 +73,10 @@ export function useNotionSuggestions<T extends EditorCustomHandlers>(_customHand
     label: editorMediaPresets.audio.label,
     icon: editorMediaPresets.audio.icon,
   }, {
+    kind: 'youtubeEmbed',
+    label: editorYoutubePreset.label,
+    icon: editorYoutubePreset.icon,
+  }, {
     kind: 'table',
     label: 'Tableau',
     icon: 'i-tabler-table',

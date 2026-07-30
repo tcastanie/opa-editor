@@ -7,7 +7,9 @@ import { TableKit } from '@tiptap/extension-table'
 import { CellSelection } from '@tiptap/pm/tables'
 import { CodeBlockShiki } from 'tiptap-extension-code-block-shiki'
 import { CustomAudio, CustomVideo } from '~/utils/tiptap/media'
+import { CustomYoutube } from '~/utils/tiptap/youtube'
 import { mediaUploadExtensions } from './MediaUploadExtension'
+import { YoutubeEmbed } from './YoutubeEmbedExtension'
 
 /**
  * Ce composant, ses frères du dossier `notion/`, les composables `useNotion*`
@@ -27,7 +29,10 @@ provide('editorUploadHandler', computed(() => onUpload))
 
 const sourceCodeOpen = ref(false)
 
-/** Insère la zone de dépôt d'un média ; elle se remplace après l'envoi. */
+/**
+ * Insère le bloc d'attente d'un média ; il se remplace tout seul une fois le
+ * fichier envoyé — ou, pour YouTube, l'URL saisie.
+ */
 function mediaUploadHandler(node: string) {
   return {
     canExecute: (editor: Editor) => editor.can().insertContent({ type: node }),
@@ -41,6 +46,7 @@ const customHandlers = {
   imageUpload: mediaUploadHandler(editorMediaPresets.image.uploadNode),
   videoUpload: mediaUploadHandler(editorMediaPresets.video.uploadNode),
   audioUpload: mediaUploadHandler(editorMediaPresets.audio.uploadNode),
+  youtubeEmbed: mediaUploadHandler(editorYoutubePreset.embedNode),
   table: {
     canExecute: (editor: Editor) => editor.can().insertTable({ rows: 3, cols: 3, withHeaderRow: true }),
     execute: (editor: Editor) => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }),
@@ -74,10 +80,12 @@ const { items: suggestionItems } = useNotionSuggestions(customHandlers)
 const { getItems: getDragHandleItems, onNodeChange } = useNotionDragHandle(customHandlers)
 const { toolbarItems, bubbleToolbarItems, getMediaToolbarItems, getTableToolbarItems } = useNotionToolbar(customHandlers)
 
-/** Vrai sur un média inséré comme sur sa zone de dépôt. */
+/** Vrai sur un média inséré comme sur son bloc d'attente. */
 function isMediaActive(editor: Editor) {
   return editorMediaKinds.some(kind => editor.isActive(editorMediaPresets[kind].node)
     || editor.isActive(editorMediaPresets[kind].uploadNode))
+  || editor.isActive(editorYoutubePreset.node)
+  || editor.isActive(editorYoutubePreset.embedNode)
 }
 
 const extensions = [
@@ -92,7 +100,9 @@ const extensions = [
   // L'image vient de Nuxt UI ; vidéo et audio n'ont pas d'équivalent officiel.
   CustomVideo,
   CustomAudio,
+  CustomYoutube,
   ...mediaUploadExtensions,
+  YoutubeEmbed,
   TableKit,
   TaskList,
   TaskItem,
@@ -146,7 +156,7 @@ const extensions = [
       :editor="editor"
       :items="getMediaToolbarItems(editor)"
       layout="bubble"
-      :should-show="({ editor: current, view }: any) => editorMediaKinds.some(kind => current.isActive(editorMediaPresets[kind].node)) && view.hasFocus()"
+      :should-show="({ editor: current, view }: any) => (editorMediaKinds.some(kind => current.isActive(editorMediaPresets[kind].node)) || current.isActive(editorYoutubePreset.node)) && view.hasFocus()"
     />
 
     <UEditorToolbar

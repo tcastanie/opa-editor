@@ -28,6 +28,11 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
     'icon': 'i-tabler-music-plus',
     'tooltip': { text: editorMediaPresets.audio.insertLabel },
   }, {
+    'kind': 'youtubeEmbed',
+    'aria-label': editorYoutubePreset.label,
+    'icon': editorYoutubePreset.icon,
+    'tooltip': { text: editorYoutubePreset.insertLabel },
+  }, {
     'icon': 'i-tabler-clock-plus',
     'tooltip': { text: 'Insérer date/heure' },
     'aria-label': 'Date/heure',
@@ -144,42 +149,69 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
     'icon': editorMediaPresets.audio.icon,
     'tooltip': { text: editorMediaPresets.audio.insertLabel },
     'aria-label': editorMediaPresets.audio.label,
+  }, {
+    'kind': 'youtubeEmbed',
+    'icon': editorYoutubePreset.icon,
+    'tooltip': { text: editorYoutubePreset.insertLabel },
+    'aria-label': editorYoutubePreset.label,
   }]]
 
-  /** Barre flottante d'un média inséré : image, vidéo ou audio. */
+  /** Bloc d'attente à réinsérer pour remplacer un média : dépôt ou saisie d'URL. */
+  const placeholderOf = (nodeName?: string | null) => {
+    if (nodeName === editorYoutubePreset.node) {
+      return editorYoutubePreset.embedNode
+    }
+
+    return editorMediaPresetOf(nodeName)?.uploadNode
+  }
+
+  /** Barre flottante d'un média inséré : image, vidéo, audio ou YouTube. */
   const getMediaToolbarItems = (editor: Editor): EditorToolbarItem<T>[][] => {
     const node = editor.state.doc.nodeAt(editor.state.selection.from)
+    const isYoutube = node?.type.name === editorYoutubePreset.node
 
     // Le nœud est relu au clic : la sélection a pu bouger depuis le rendu.
     const selectedMedia = () => {
       const pos = editor.state.selection.from
       const current = editor.state.doc.nodeAt(pos)
 
-      return editorMediaPresetOf(current?.type.name) && current ? { pos, node: current } : null
+      return placeholderOf(current?.type.name) && current ? { pos, node: current } : null
     }
 
-    return [[{
-      'icon': 'i-tabler-download',
-      'to': node?.attrs?.src,
-      'download': true,
-      'tooltip': { text: 'Télécharger' },
-      'aria-label': 'Télécharger',
-    }, {
-      'icon': 'i-tabler-refresh',
-      'tooltip': { text: 'Remplacer' },
-      'aria-label': 'Remplacer',
-      'onClick': () => {
-        const selected = selectedMedia()
-        const uploadNode = editorMediaPresetOf(selected?.node.type.name)?.uploadNode
+    return [[
+      // Une vidéo YouTube n'est pas un fichier hébergé : rien à télécharger,
+      // seulement un lien à ouvrir.
+      isYoutube
+        ? {
+            'icon': 'i-tabler-external-link',
+            'to': node?.attrs?.src,
+            'target': '_blank',
+            'tooltip': { text: editorYoutubePreset.openLabel },
+            'aria-label': editorYoutubePreset.openLabel,
+          }
+        : {
+            'icon': 'i-tabler-download',
+            'to': node?.attrs?.src,
+            'download': true,
+            'tooltip': { text: 'Télécharger' },
+            'aria-label': 'Télécharger',
+          },
+      {
+        'icon': 'i-tabler-refresh',
+        'tooltip': { text: 'Remplacer' },
+        'aria-label': 'Remplacer',
+        'onClick': () => {
+          const selected = selectedMedia()
+          const placeholder = placeholderOf(selected?.node.type.name)
 
-        if (selected && uploadNode) {
-          editor.chain().focus()
-            .deleteRange({ from: selected.pos, to: selected.pos + selected.node.nodeSize })
-            .insertContentAt(selected.pos, { type: uploadNode })
-            .run()
-        }
-      },
-    }], [{
+          if (selected && placeholder) {
+            editor.chain().focus()
+              .deleteRange({ from: selected.pos, to: selected.pos + selected.node.nodeSize })
+              .insertContentAt(selected.pos, { type: placeholder })
+              .run()
+          }
+        },
+      }], [{
       'icon': 'i-tabler-trash',
       'tooltip': { text: 'Supprimer' },
       'aria-label': 'Supprimer',

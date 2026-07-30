@@ -57,6 +57,7 @@ const BUTTONS = {
   customImage: { slot: 'image', icon: 'i-tabler-photo' },
   customVideo: { slot: 'video', icon: 'i-tabler-video' },
   customAudio: { slot: 'audio', icon: 'i-tabler-music' },
+  customYoutube: { slot: 'youtube', icon: 'i-tabler-brand-youtube' },
   table: { slot: 'table', icon: 'i-tabler-table' },
   insertdatetime: { slot: 'dateTime', icon: 'i-tabler-clock-plus' },
 

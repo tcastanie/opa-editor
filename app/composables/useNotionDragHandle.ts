@@ -21,6 +21,8 @@ const TYPE_LABELS: Record<string, string> = {
   videoUpload: 'Envoi de vidéo',
   audio: 'Audio',
   audioUpload: 'Envoi de fichier audio',
+  youtube: 'Vidéo YouTube',
+  youtubeEmbed: 'Lien YouTube',
   table: 'Tableau',
   horizontalRule: 'Séparateur',
 }
@@ -53,6 +55,17 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
         pos,
         label: 'Réinitialiser le formatage',
         icon: 'i-tabler-rotate',
+      }]
+    }
+
+    if (nodeType === editorYoutubePreset.node) {
+      const node = pos !== undefined ? editor.state.doc.nodeAt(pos) : null
+
+      return [{
+        label: editorYoutubePreset.openLabel,
+        icon: 'i-tabler-external-link',
+        to: node?.attrs?.src,
+        target: '_blank',
       }]
     }
 

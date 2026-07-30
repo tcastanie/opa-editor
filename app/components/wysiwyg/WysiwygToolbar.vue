@@ -73,6 +73,10 @@ defineProps<{
       />
     </template>
 
+    <template #youtube>
+      <WysiwygYoutubePopover :editor="editor" />
+    </template>
+
     <template #table>
       <WysiwygTableMenu :editor="editor" />
     </template>

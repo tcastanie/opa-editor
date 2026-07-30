@@ -37,6 +37,30 @@ html.dark .tiptap .shiki span {
   outline-offset: 2px;
 }
 
+/* Les attributs `width` / `height` du nœud `youtube` servent au HTML sérialisé ;
+   dans l'éditeur, l'iframe suit la largeur disponible en 16/9. */
+.tiptap div[data-youtube-video] {
+  margin-block: 1em;
+}
+
+.tiptap div[data-youtube-video] iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: var(--ui-radius);
+  /* Sans ça l'iframe avale le clic et le bloc devient impossible à
+     sélectionner : la lecture n'est rendue au lecteur qu'une fois sélectionné. */
+  pointer-events: none;
+}
+
+.tiptap div[data-youtube-video].ProseMirror-selectednode iframe {
+  outline: 2px solid var(--ui-color-primary-500);
+  outline-offset: 2px;
+  pointer-events: auto;
+}
+
 /* ---------------------------------------------------------------------------
    Template WYSIWYG
    -------------------------------------------------------------------------*/
