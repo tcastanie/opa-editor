@@ -1,36 +1,36 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
 
-const props = defineProps<{
+const { editor } = defineProps<{
   editor: Editor
 }>()
 
 const open = ref(false)
 const url = ref('')
 
-const active = computed(() => props.editor.isActive('link'))
+const active = computed(() => editor.isActive('link'))
 const disabled = computed(() => {
-  if (!props.editor.isEditable) {
+  if (!editor.isEditable) {
     return true
   }
 
-  const { selection } = props.editor.state
-  return selection.empty && !props.editor.isActive('link')
+  const { selection } = editor.state
+  return selection.empty && !editor.isActive('link')
 })
 
-watch(() => props.editor, (editor, _previous, onCleanup) => {
-  if (!editor) {
+watch(() => editor, (current, _previous, onCleanup) => {
+  if (!current) {
     return
   }
 
   const syncUrl = () => {
-    url.value = editor.getAttributes('link').href || ''
+    url.value = current.getAttributes('link').href || ''
   }
 
   syncUrl()
-  editor.on('selectionUpdate', syncUrl)
+  current.on('selectionUpdate', syncUrl)
 
-  onCleanup(() => editor.off('selectionUpdate', syncUrl))
+  onCleanup(() => current.off('selectionUpdate', syncUrl))
 }, { immediate: true })
 
 function setLink() {
@@ -38,11 +38,11 @@ function setLink() {
     return
   }
 
-  const { selection } = props.editor.state
+  const { selection } = editor.state
   const isEmpty = selection.empty
-  let chain = props.editor.chain().focus()
+  let chain = editor.chain().focus()
 
-  if (props.editor.isActive('code') && !isEmpty) {
+  if (editor.isActive('code') && !isEmpty) {
     chain = chain.extendMarkRange('code').setLink({ href: url.value })
   }
   else {
@@ -58,7 +58,7 @@ function setLink() {
 }
 
 function removeLink() {
-  props.editor.chain().focus().extendMarkRange('link').unsetLink().setMeta('preventAutolink', true).run()
+  editor.chain().focus().extendMarkRange('link').unsetLink().setMeta('preventAutolink', true).run()
   url.value = ''
   open.value = false
 }

@@ -6,7 +6,7 @@ import type { Editor } from '@tiptap/vue-3'
  * *après* passage dans le schéma TipTap — tout ce qu'aucune extension ne
  * déclare a déjà été écarté, y compris à la réapplication.
  */
-const props = defineProps<{
+const { editor } = defineProps<{
   editor: Editor
 }>()
 
@@ -16,7 +16,7 @@ const html = ref('')
 
 watch(open, (isOpen) => {
   if (isOpen) {
-    html.value = formatHtml(props.editor.getHTML())
+    html.value = formatHtml(editor.getHTML())
   }
 })
 
@@ -26,8 +26,8 @@ function formatHtml(source: string) {
 }
 
 function apply() {
-  props.editor.commands.setContent(html.value, { contentType: 'html' })
-  props.editor.commands.focus()
+  editor.commands.setContent(html.value, { contentType: 'html' })
+  editor.commands.focus()
   open.value = false
 }
 </script>

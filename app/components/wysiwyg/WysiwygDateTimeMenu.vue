@@ -2,7 +2,7 @@
 import type { Editor } from '@tiptap/vue-3'
 
 /** Équivalent du `DateTimeMenu` du manifeste (`insertdatetime`). */
-const props = defineProps<{
+const { editor } = defineProps<{
   editor: Editor
 }>()
 
@@ -13,7 +13,7 @@ const menuItems = computed(() => {
     label: entry.label,
     kbds: undefined,
     onSelect: () => {
-      props.editor.chain().focus().insertContent(entry.format(new Date())).run()
+      editor.chain().focus().insertContent(entry.format(new Date())).run()
     },
     // Aperçu figé au moment du rendu du menu : suffisant pour se repérer.
     description: entry.format(now),

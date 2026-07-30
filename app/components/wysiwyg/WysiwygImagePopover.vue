@@ -5,7 +5,7 @@ import type { Editor } from '@tiptap/vue-3'
  * `customImage` du manifeste. Aucun stockage n'est câblé ici : le fichier part
  * dans `onUpload`, le point d'extension à brancher sur votre backend.
  */
-const props = defineProps<{
+const { editor, onUpload } = defineProps<{
   editor: Editor
   onUpload?: EditorUploadHandler
 }>()
@@ -13,9 +13,9 @@ const props = defineProps<{
 const open = ref(false)
 const alt = ref('')
 
-const { upload, pending, error, isConfigured } = useEditorUpload(() => props.onUpload)
+const { upload, pending, error, isConfigured } = useEditorUpload(() => onUpload)
 
-const active = computed(() => props.editor.isActive('image'))
+const active = computed(() => editor.isActive('image'))
 
 async function onFileChange(file: File | File[] | null | undefined) {
   const selected = Array.isArray(file) ? file[0] : file
@@ -28,7 +28,7 @@ async function onFileChange(file: File | File[] | null | undefined) {
     return
   }
 
-  props.editor.chain().focus().setImage({
+  editor.chain().focus().setImage({
     src: result.src,
     alt: alt.value || result.alt || selected.name,
     title: result.title,

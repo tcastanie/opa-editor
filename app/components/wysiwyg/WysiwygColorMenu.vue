@@ -5,7 +5,7 @@ import type { Editor } from '@tiptap/vue-3'
  * Équivalent du `ColorMenu` du manifeste : nuancier + sélecteur libre, pour la
  * couleur du texte (`mode: 'text'`) ou celle du fond (`mode: 'background'`).
  */
-const props = defineProps<{
+const { editor, mode } = defineProps<{
   editor: Editor
   mode: 'text' | 'background'
   label: string
@@ -21,21 +21,21 @@ const PALETTE = [
 
 const open = ref(false)
 
-const attribute = computed(() => props.mode === 'text' ? 'color' : 'backgroundColor')
-const current = computed<string | null>(() => props.editor.getAttributes('textStyle')?.[attribute.value] ?? null)
+const attribute = computed(() => mode === 'text' ? 'color' : 'backgroundColor')
+const current = computed<string | null>(() => editor.getAttributes('textStyle')?.[attribute.value] ?? null)
 
 const active = computed(() => !!current.value)
-const disabled = computed(() => !props.editor.isEditable || !props.editor.schema.marks.textStyle)
+const disabled = computed(() => !editor.isEditable || !editor.schema.marks.textStyle)
 
 function setColor(value: string) {
-  const chain = props.editor.chain().focus()
-  ;(props.mode === 'text' ? chain.setColor(value) : chain.setBackgroundColor(value)).run()
+  const chain = editor.chain().focus()
+  ;(mode === 'text' ? chain.setColor(value) : chain.setBackgroundColor(value)).run()
   open.value = false
 }
 
 function unsetColor() {
-  const chain = props.editor.chain().focus()
-  ;(props.mode === 'text' ? chain.unsetColor() : chain.unsetBackgroundColor()).run()
+  const chain = editor.chain().focus()
+  ;(mode === 'text' ? chain.unsetColor() : chain.unsetBackgroundColor()).run()
   open.value = false
 }
 </script>

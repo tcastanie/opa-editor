@@ -17,16 +17,13 @@ import { PreservedAttributes } from '~/utils/tiptap/preserved-attributes'
  * Auto-contenu : ce composant, ses frères du dossier `wysiwyg/`, les composables
  * `useWysiwyg*` et `app/utils/tiptap/` suffisent à le porter dans un autre projet.
  */
-const props = withDefaults(defineProps<{
+const { toolbarKeys = wysiwygToolbarAll, placeholder = 'Rédigez votre contenu…' } = defineProps<{
   /** Boutons affichés, parmi les clés du manifeste. */
   toolbarKeys?: WysiwygButtonKey[]
   /** Point d'extension pour l'envoi de fichiers. Voir `useEditorUpload`. */
   onUpload?: EditorUploadHandler
   placeholder?: string
-}>(), {
-  toolbarKeys: () => wysiwygToolbarAll,
-  placeholder: 'Rédigez votre contenu…',
-})
+}>()
 
 const model = defineModel<string>({ default: '' })
 
@@ -48,7 +45,7 @@ const handlers = useWysiwygHandlers({
   },
 })
 
-const { toolbarItems } = useWysiwygToolbar(() => props.toolbarKeys)
+const { toolbarItems } = useWysiwygToolbar(() => toolbarKeys)
 
 const extensions = [
   TextStyleKit.configure({ lineHeight: false, fontFamily: false }),

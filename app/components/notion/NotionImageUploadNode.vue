@@ -2,7 +2,7 @@
 import type { NodeViewProps } from '@tiptap/vue-3'
 import { NodeViewWrapper } from '@tiptap/vue-3'
 
-const props = defineProps<NodeViewProps>()
+const { editor, getPos } = defineProps<NodeViewProps>()
 
 /**
  * Le gestionnaire d'envoi est fourni par la page via `provide`, parce qu'une
@@ -24,12 +24,12 @@ async function onFileChange(file: File | File[] | null | undefined) {
     return
   }
 
-  const pos = props.getPos()
+  const pos = getPos()
   if (typeof pos !== 'number') {
     return
   }
 
-  props.editor
+  editor
     .chain()
     .focus()
     .deleteRange({ from: pos, to: pos + 1 })

@@ -2,11 +2,11 @@
 import type { Editor } from '@tiptap/vue-3'
 
 /** Équivalent du `TableMenu` du manifeste, au-dessus de `@tiptap/extension-table`. */
-const props = defineProps<{
+const { editor } = defineProps<{
   editor: Editor
 }>()
 
-const inTable = computed(() => props.editor.isActive('table'))
+const inTable = computed(() => editor.isActive('table'))
 
 function action(label: string, icon: string, run: () => boolean, enabled = true) {
   return {
@@ -20,7 +20,6 @@ function action(label: string, icon: string, run: () => boolean, enabled = true)
 }
 
 const menuItems = computed(() => {
-  const editor = props.editor
   const chain = () => editor.chain().focus()
 
   return [

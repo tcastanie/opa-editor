@@ -1,30 +1,27 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
 
-const props = withDefaults(defineProps<{
+const { editor, items = fontSizes, width = 80 } = defineProps<{
   editor: Editor
   items?: FontOption[]
   width?: number
-}>(), {
-  items: () => fontSizes,
-  width: 80,
-})
+}>()
 
-const current = computed<string | null>(() => props.editor.getAttributes('textStyle')?.fontSize ?? null)
+const current = computed<string | null>(() => editor.getAttributes('textStyle')?.fontSize ?? null)
 
 const currentLabel = computed(() =>
-  props.items.find(item => item.value === current.value)?.label ?? props.items[0]?.label ?? 'Taille de police',
+  items.find(item => item.value === current.value)?.label ?? items[0]?.label ?? 'Taille de police',
 )
 
-const disabled = computed(() => !props.editor.isEditable || !props.editor.schema.marks.textStyle)
+const disabled = computed(() => !editor.isEditable || !editor.schema.marks.textStyle)
 
 function apply(option: FontOption) {
-  const chain = props.editor.chain().focus();
+  const chain = editor.chain().focus();
 
   (option.value ? chain.setFontSize(option.value) : chain.unsetFontSize()).run()
 }
 
-const menuItems = computed(() => props.items.map(option => ({
+const menuItems = computed(() => items.map(option => ({
   label: option.label,
   description: option.description,
   type: 'checkbox' as const,
