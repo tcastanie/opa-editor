@@ -24,23 +24,23 @@ const menuItems = computed(() => {
   const chain = () => editor.chain().focus()
 
   return [
-    [action('Insérer un tableau 3×3', 'i-lucide-table', () => chain().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run(), editor.can().insertTable({ rows: 3, cols: 3, withHeaderRow: true }))],
+    [action('Insérer un tableau 3×3', 'i-tabler-table', () => chain().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run(), editor.can().insertTable({ rows: 3, cols: 3, withHeaderRow: true }))],
     [
-      action('Ligne au-dessus', 'i-lucide-between-vertical-start', () => chain().addRowBefore().run(), inTable.value),
-      action('Ligne en dessous', 'i-lucide-between-vertical-end', () => chain().addRowAfter().run(), inTable.value),
-      action('Colonne avant', 'i-lucide-between-horizontal-start', () => chain().addColumnBefore().run(), inTable.value),
-      action('Colonne après', 'i-lucide-between-horizontal-end', () => chain().addColumnAfter().run(), inTable.value),
+      action('Ligne au-dessus', 'i-tabler-row-insert-top', () => chain().addRowBefore().run(), inTable.value),
+      action('Ligne en dessous', 'i-tabler-row-insert-bottom', () => chain().addRowAfter().run(), inTable.value),
+      action('Colonne avant', 'i-tabler-column-insert-left', () => chain().addColumnBefore().run(), inTable.value),
+      action('Colonne après', 'i-tabler-column-insert-right', () => chain().addColumnAfter().run(), inTable.value),
     ],
     [
-      action('Basculer la ligne d\'en-tête', 'i-lucide-panel-top', () => chain().toggleHeaderRow().run(), inTable.value),
-      action('Basculer la colonne d\'en-tête', 'i-lucide-panel-left', () => chain().toggleHeaderColumn().run(), inTable.value),
-      action('Fusionner les cellules', 'i-lucide-table-cells-merge', () => chain().mergeCells().run(), editor.can().mergeCells()),
-      action('Scinder la cellule', 'i-lucide-table-cells-split', () => chain().splitCell().run(), editor.can().splitCell()),
+      action('Basculer la ligne d\'en-tête', 'i-tabler-layout-navbar', () => chain().toggleHeaderRow().run(), inTable.value),
+      action('Basculer la colonne d\'en-tête', 'i-tabler-layout-sidebar', () => chain().toggleHeaderColumn().run(), inTable.value),
+      action('Fusionner les cellules', 'i-tabler-arrows-join', () => chain().mergeCells().run(), editor.can().mergeCells()),
+      action('Scinder la cellule', 'i-tabler-arrows-split', () => chain().splitCell().run(), editor.can().splitCell()),
     ],
     [
-      action('Supprimer la ligne', 'i-lucide-rows-3', () => chain().deleteRow().run(), inTable.value),
-      action('Supprimer la colonne', 'i-lucide-columns-3', () => chain().deleteColumn().run(), inTable.value),
-      action('Supprimer le tableau', 'i-lucide-trash-2', () => chain().deleteTable().run(), inTable.value),
+      action('Supprimer la ligne', 'i-tabler-row-remove', () => chain().deleteRow().run(), inTable.value),
+      action('Supprimer la colonne', 'i-tabler-column-remove', () => chain().deleteColumn().run(), inTable.value),
+      action('Supprimer le tableau', 'i-tabler-trash', () => chain().deleteTable().run(), inTable.value),
     ],
   ]
 })
@@ -56,7 +56,7 @@ const menuItems = computed(() => {
   >
     <UTooltip text="Tableau">
       <UButton
-        icon="i-lucide-table"
+        icon="i-tabler-table"
         color="neutral"
         active-color="primary"
         variant="ghost"

@@ -66,7 +66,7 @@ const menuItems = computed(() => props.items.map(format => ({
   >
     <UTooltip text="Styles">
       <UButton
-        icon="i-lucide-paintbrush"
+        icon="i-tabler-brush"
         color="neutral"
         active-color="primary"
         variant="ghost"
@@ -76,7 +76,7 @@ const menuItems = computed(() => props.items.map(format => ({
         :disabled="disabled"
         :label="activeFormat?.label ?? 'Styles'"
         aria-label="Styles"
-        trailing-icon="i-lucide-chevron-down"
+        trailing-icon="i-tabler-chevron-down"
         class="justify-between shrink-0"
         :style="{ width: `${width}px` }"
         :ui="{ label: 'truncate' }"

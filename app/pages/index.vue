@@ -6,12 +6,12 @@ useSeoMeta({
 const templates = [{
   title: 'Notion-like',
   to: '/notion',
-  icon: 'i-lucide-file-text',
+  icon: 'i-tabler-text-caption',
   description: 'Édition sans barre d\'outils permanente',
 }, {
   title: 'WYSIWYG',
   to: '/wysiwyg',
-  icon: 'i-lucide-panel-top',
+  icon: 'i-tabler-layout-navbar',
   description: 'Barre d\'outils classique',
 }]
 </script>

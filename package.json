@@ -11,7 +11,7 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "@iconify-json/lucide": "1.2.119",
+    "@iconify-json/tabler": "1.2.38",
     "@nuxt/ui": "4.10.0",
     "@tiptap/core": "3.29.2",
     "@tiptap/extension-emoji": "3.29.2",

@@ -30,7 +30,7 @@ const menuItems = computed(() => {
   >
     <UTooltip text="Insérer date/heure">
       <UButton
-        icon="i-lucide-clock-plus"
+        icon="i-tabler-clock-plus"
         color="neutral"
         variant="ghost"
         size="sm"

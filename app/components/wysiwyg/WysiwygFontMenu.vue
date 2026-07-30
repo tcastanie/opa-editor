@@ -65,7 +65,7 @@ const menuItems = computed(() => props.items.map(option => ({
         :disabled="disabled"
         :label="currentLabel"
         :aria-label="label"
-        trailing-icon="i-lucide-chevron-down"
+        trailing-icon="i-tabler-chevron-down"
         class="justify-between shrink-0"
         :style="{ width: `${width}px` }"
         :ui="{ label: 'truncate' }"

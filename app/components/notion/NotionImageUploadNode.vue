@@ -52,7 +52,7 @@ async function onFileChange(file: File | File[] | null | undefined) {
     >
       <template #leading>
         <UAvatar
-          :icon="error ? 'i-lucide-alert-circle' : pending ? 'i-lucide-loader-circle' : 'i-lucide-image'"
+          :icon="error ? 'i-tabler-alert-circle' : pending ? 'i-tabler-loader-2' : 'i-tabler-photo'"
           size="xl"
           :ui="{ icon: [pending && 'animate-spin', error && 'text-error'] }"
         />

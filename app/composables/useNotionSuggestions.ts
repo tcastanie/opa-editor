@@ -8,70 +8,70 @@ export function useNotionSuggestions<T extends EditorCustomHandlers>(_customHand
   }, {
     kind: 'paragraph',
     label: 'Paragraphe',
-    icon: 'i-lucide-type',
+    icon: 'i-tabler-pilcrow',
   }, {
     kind: 'heading',
     level: 1,
     label: 'Titre 1',
-    icon: 'i-lucide-heading-1',
+    icon: 'i-tabler-h-1',
   }, {
     kind: 'heading',
     level: 2,
     label: 'Titre 2',
-    icon: 'i-lucide-heading-2',
+    icon: 'i-tabler-h-2',
   }, {
     kind: 'heading',
     level: 3,
     label: 'Titre 3',
-    icon: 'i-lucide-heading-3',
+    icon: 'i-tabler-h-3',
   }, {
     kind: 'heading',
     level: 4,
     label: 'Titre 4',
-    icon: 'i-lucide-heading-4',
+    icon: 'i-tabler-h-4',
   }, {
     kind: 'bulletList',
     label: 'Liste à puces',
-    icon: 'i-lucide-list',
+    icon: 'i-tabler-list',
   }, {
     kind: 'orderedList',
     label: 'Liste numérotée',
-    icon: 'i-lucide-list-ordered',
+    icon: 'i-tabler-list-numbers',
   }, {
     kind: 'taskList',
     label: 'Liste de tâches',
-    icon: 'i-lucide-list-check',
+    icon: 'i-tabler-list-check',
   }, {
     kind: 'blockquote',
     label: 'Citation',
-    icon: 'i-lucide-quote',
+    icon: 'i-tabler-quote',
   }, {
     kind: 'codeBlock',
     label: 'Bloc de code',
-    icon: 'i-lucide-square-code',
+    icon: 'i-tabler-codeblock',
   }], [{
     type: 'label',
     label: 'Insérer',
   }, {
     kind: 'mention',
     label: 'Mention',
-    icon: 'i-lucide-at-sign',
+    icon: 'i-tabler-at',
   }, {
     kind: 'emoji',
     label: 'Émoji',
-    icon: 'i-lucide-smile-plus',
+    icon: 'i-tabler-mood-plus',
   }, {
     kind: 'imageUpload',
     label: 'Image',
-    icon: 'i-lucide-image',
+    icon: 'i-tabler-photo',
   }, {
     kind: 'table',
     label: 'Tableau',
-    icon: 'i-lucide-table',
+    icon: 'i-tabler-table',
   }, {
     kind: 'horizontalRule',
     label: 'Séparateur',
-    icon: 'i-lucide-separator-horizontal',
+    icon: 'i-tabler-separator-horizontal',
   }]] satisfies EditorSuggestionMenuItem<T>[][]
 
   return { items }

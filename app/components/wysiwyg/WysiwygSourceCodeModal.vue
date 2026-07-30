@@ -61,7 +61,7 @@ function apply() {
         />
         <UButton
           label="Appliquer"
-          icon="i-lucide-check"
+          icon="i-tabler-check"
           @click="apply"
         />
       </div>

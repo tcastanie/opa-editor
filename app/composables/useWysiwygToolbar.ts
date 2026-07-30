@@ -10,82 +10,84 @@ type Item = EditorToolbarItem<WysiwygHandlers>
  */
 const BUTTONS = {
   // history
-  undo: { 'kind': 'undo', 'icon': 'i-lucide-undo', 'tooltip': { text: 'Annuler' }, 'aria-label': 'Annuler' },
-  redo: { 'kind': 'redo', 'icon': 'i-lucide-redo', 'tooltip': { text: 'Rétablir' }, 'aria-label': 'Rétablir' },
+  undo: { 'kind': 'undo', 'icon': 'i-tabler-arrow-back-up', 'tooltip': { text: 'Annuler' }, 'aria-label': 'Annuler' },
+  redo: { 'kind': 'redo', 'icon': 'i-tabler-arrow-forward-up', 'tooltip': { text: 'Rétablir' }, 'aria-label': 'Rétablir' },
 
   // format
-  bold: { 'kind': 'mark', 'mark': 'bold', 'icon': 'i-lucide-bold', 'tooltip': { text: 'Gras', kbds: ['meta', 'B'] }, 'aria-label': 'Gras' },
-  italic: { 'kind': 'mark', 'mark': 'italic', 'icon': 'i-lucide-italic', 'tooltip': { text: 'Italique', kbds: ['meta', 'I'] }, 'aria-label': 'Italique' },
-  underline: { 'kind': 'mark', 'mark': 'underline', 'icon': 'i-lucide-underline', 'tooltip': { text: 'Souligné', kbds: ['meta', 'U'] }, 'aria-label': 'Souligné' },
-  strikethrough: { 'kind': 'mark', 'mark': 'strike', 'icon': 'i-lucide-strikethrough', 'tooltip': { text: 'Barré' }, 'aria-label': 'Barré' },
-  subscript: { 'kind': 'subscript', 'icon': 'i-lucide-subscript', 'tooltip': { text: 'Indice' }, 'aria-label': 'Indice' },
-  superscript: { 'kind': 'superscript', 'icon': 'i-lucide-superscript', 'tooltip': { text: 'Exposant' }, 'aria-label': 'Exposant' },
+  bold: { 'kind': 'mark', 'mark': 'bold', 'icon': 'i-tabler-bold', 'tooltip': { text: 'Gras', kbds: ['meta', 'B'] }, 'aria-label': 'Gras' },
+  italic: { 'kind': 'mark', 'mark': 'italic', 'icon': 'i-tabler-italic', 'tooltip': { text: 'Italique', kbds: ['meta', 'I'] }, 'aria-label': 'Italique' },
+  underline: { 'kind': 'mark', 'mark': 'underline', 'icon': 'i-tabler-underline', 'tooltip': { text: 'Souligné', kbds: ['meta', 'U'] }, 'aria-label': 'Souligné' },
+  strikethrough: { 'kind': 'mark', 'mark': 'strike', 'icon': 'i-tabler-strikethrough', 'tooltip': { text: 'Barré' }, 'aria-label': 'Barré' },
+  subscript: { 'kind': 'subscript', 'icon': 'i-tabler-subscript', 'tooltip': { text: 'Indice' }, 'aria-label': 'Indice' },
+  superscript: { 'kind': 'superscript', 'icon': 'i-tabler-superscript', 'tooltip': { text: 'Exposant' }, 'aria-label': 'Exposant' },
 
   // style
-  fontfamily: { slot: 'fontFamily', icon: 'i-lucide-type' },
-  fontsize: { slot: 'fontSize', icon: 'i-lucide-a-large-small' },
-  forecolor: { slot: 'foreColor', icon: 'i-lucide-baseline' },
-  backcolor: { slot: 'backColor', icon: 'i-lucide-highlighter' },
+  fontfamily: { slot: 'fontFamily', icon: 'i-tabler-typography' },
+  fontsize: { slot: 'fontSize', icon: 'i-tabler-text-size' },
+  forecolor: { slot: 'foreColor', icon: 'i-tabler-text-color' },
+  backcolor: { slot: 'backColor', icon: 'i-tabler-highlight' },
 
   // customFormats
-  styles: { slot: 'styles', icon: 'i-lucide-paintbrush' },
+  styles: { slot: 'styles', icon: 'i-tabler-brush' },
 
   // heading
-  h1: { kind: 'heading', level: 1, icon: 'i-lucide-heading-1', tooltip: { text: 'Titre 1' }, label: 'Titre 1' },
-  h2: { kind: 'heading', level: 2, icon: 'i-lucide-heading-2', tooltip: { text: 'Titre 2' }, label: 'Titre 2' },
-  h3: { kind: 'heading', level: 3, icon: 'i-lucide-heading-3', tooltip: { text: 'Titre 3' }, label: 'Titre 3' },
-  h4: { kind: 'heading', level: 4, icon: 'i-lucide-heading-4', tooltip: { text: 'Titre 4' }, label: 'Titre 4' },
-  h5: { kind: 'heading', level: 5, icon: 'i-lucide-heading-5', tooltip: { text: 'Titre 5' }, label: 'Titre 5' },
-  h6: { kind: 'heading', level: 6, icon: 'i-lucide-heading-6', tooltip: { text: 'Titre 6' }, label: 'Titre 6' },
+  h1: { kind: 'heading', level: 1, icon: 'i-tabler-h-1', tooltip: { text: 'Titre 1' }, label: 'Titre 1' },
+  h2: { kind: 'heading', level: 2, icon: 'i-tabler-h-2', tooltip: { text: 'Titre 2' }, label: 'Titre 2' },
+  h3: { kind: 'heading', level: 3, icon: 'i-tabler-h-3', tooltip: { text: 'Titre 3' }, label: 'Titre 3' },
+  h4: { kind: 'heading', level: 4, icon: 'i-tabler-h-4', tooltip: { text: 'Titre 4' }, label: 'Titre 4' },
+  h5: { kind: 'heading', level: 5, icon: 'i-tabler-h-5', tooltip: { text: 'Titre 5' }, label: 'Titre 5' },
+  h6: { kind: 'heading', level: 6, icon: 'i-tabler-h-6', tooltip: { text: 'Titre 6' }, label: 'Titre 6' },
 
   // align (regroupés dans un menu, cf. `popover: true` dans le manifeste)
-  alignleft: { kind: 'textAlign', align: 'left', icon: 'i-lucide-align-left', label: 'Aligner à gauche' },
-  aligncenter: { kind: 'textAlign', align: 'center', icon: 'i-lucide-align-center', label: 'Centrer' },
-  alignright: { kind: 'textAlign', align: 'right', icon: 'i-lucide-align-right', label: 'Aligner à droite' },
-  alignjustify: { kind: 'textAlign', align: 'justify', icon: 'i-lucide-align-justify', label: 'Justifier' },
-  alignnone: { kind: 'unsetTextAlign', icon: 'i-lucide-align-left', label: 'Aucun alignement' },
+  alignleft: { kind: 'textAlign', align: 'left', icon: 'i-tabler-align-left', label: 'Aligner à gauche' },
+  aligncenter: { kind: 'textAlign', align: 'center', icon: 'i-tabler-align-center', label: 'Centrer' },
+  alignright: { kind: 'textAlign', align: 'right', icon: 'i-tabler-align-right', label: 'Aligner à droite' },
+  alignjustify: { kind: 'textAlign', align: 'justify', icon: 'i-tabler-align-justified', label: 'Justifier' },
+  alignnone: { kind: 'unsetTextAlign', icon: 'i-tabler-align-left', label: 'Aucun alignement' },
 
   // direction
-  ltr: { 'kind': 'direction', 'direction': 'ltr', 'icon': 'i-lucide-pilcrow-right', 'tooltip': { text: 'Gauche → Droite' }, 'aria-label': 'Gauche vers droite' },
-  rtl: { 'kind': 'direction', 'direction': 'rtl', 'icon': 'i-lucide-pilcrow-left', 'tooltip': { text: 'Droite → Gauche' }, 'aria-label': 'Droite vers gauche' },
+  ltr: { 'kind': 'direction', 'direction': 'ltr', 'icon': 'i-tabler-pilcrow-right', 'tooltip': { text: 'Gauche → Droite' }, 'aria-label': 'Gauche vers droite' },
+  rtl: { 'kind': 'direction', 'direction': 'rtl', 'icon': 'i-tabler-pilcrow-left', 'tooltip': { text: 'Droite → Gauche' }, 'aria-label': 'Droite vers gauche' },
 
   // list
-  numlist: { 'kind': 'orderedList', 'icon': 'i-lucide-list-ordered', 'tooltip': { text: 'Liste numérotée' }, 'aria-label': 'Liste numérotée' },
-  bullist: { 'kind': 'bulletList', 'icon': 'i-lucide-list', 'tooltip': { text: 'Liste à puces' }, 'aria-label': 'Liste à puces' },
-  indent: { 'kind': 'indent', 'icon': 'i-lucide-indent-increase', 'tooltip': { text: 'Augmenter le retrait' }, 'aria-label': 'Augmenter le retrait' },
-  outdent: { 'kind': 'outdent', 'icon': 'i-lucide-indent-decrease', 'tooltip': { text: 'Diminuer le retrait' }, 'aria-label': 'Diminuer le retrait' },
+  numlist: { 'kind': 'orderedList', 'icon': 'i-tabler-list-numbers', 'tooltip': { text: 'Liste numérotée' }, 'aria-label': 'Liste numérotée' },
+  bullist: { 'kind': 'bulletList', 'icon': 'i-tabler-list', 'tooltip': { text: 'Liste à puces' }, 'aria-label': 'Liste à puces' },
+  indent: { 'kind': 'indent', 'icon': 'i-tabler-indent-increase', 'tooltip': { text: 'Augmenter le retrait' }, 'aria-label': 'Augmenter le retrait' },
+  outdent: { 'kind': 'outdent', 'icon': 'i-tabler-indent-decrease', 'tooltip': { text: 'Diminuer le retrait' }, 'aria-label': 'Diminuer le retrait' },
 
   // block
-  blockquote: { 'kind': 'blockquote', 'icon': 'i-lucide-quote', 'tooltip': { text: 'Citation' }, 'aria-label': 'Citation' },
-  hr: { 'kind': 'horizontalRule', 'icon': 'i-lucide-minus', 'tooltip': { text: 'Ligne horizontale' }, 'aria-label': 'Ligne horizontale' },
+  blockquote: { 'kind': 'blockquote', 'icon': 'i-tabler-quote', 'tooltip': { text: 'Citation' }, 'aria-label': 'Citation' },
+  hr: { 'kind': 'horizontalRule', 'icon': 'i-tabler-minus', 'tooltip': { text: 'Ligne horizontale' }, 'aria-label': 'Ligne horizontale' },
 
   // insert
-  customLink: { slot: 'link', icon: 'i-lucide-link' },
-  unlink: { 'kind': 'unlink', 'icon': 'i-lucide-link-2-off', 'tooltip': { text: 'Supprimer le lien' }, 'aria-label': 'Supprimer le lien' },
-  customImage: { slot: 'image', icon: 'i-lucide-image' },
-  customMedia: { slot: 'media', icon: 'i-lucide-film' },
-  table: { slot: 'table', icon: 'i-lucide-table' },
-  pagebreak: { 'kind': 'pageBreak', 'icon': 'i-lucide-separator-horizontal', 'tooltip': { text: 'Saut de page' }, 'aria-label': 'Saut de page' },
-  insertdatetime: { slot: 'dateTime', icon: 'i-lucide-clock-plus' },
+  customLink: { slot: 'link', icon: 'i-tabler-link' },
+  unlink: { 'kind': 'unlink', 'icon': 'i-tabler-unlink', 'tooltip': { text: 'Supprimer le lien' }, 'aria-label': 'Supprimer le lien' },
+  customImage: { slot: 'image', icon: 'i-tabler-photo' },
+  customMedia: { slot: 'media', icon: 'i-tabler-movie' },
+  table: { slot: 'table', icon: 'i-tabler-table' },
+  pagebreak: { 'kind': 'pageBreak', 'icon': 'i-tabler-separator-horizontal', 'tooltip': { text: 'Saut de page' }, 'aria-label': 'Saut de page' },
+  insertdatetime: { slot: 'dateTime', icon: 'i-tabler-clock-plus' },
 
   // code
-  customInlineCode: { 'kind': 'mark', 'mark': 'code', 'icon': 'i-lucide-code', 'tooltip': { text: 'Code inline' }, 'aria-label': 'Code inline' },
-  code: { 'kind': 'sourceCode', 'icon': 'i-lucide-code-xml', 'tooltip': { text: 'Code source' }, 'aria-label': 'Code source' },
-  customPre: { 'kind': 'codeBlock', 'icon': 'i-lucide-square-code', 'tooltip': { text: 'Bloc de code' }, 'aria-label': 'Bloc de code' },
+  customInlineCode: { 'kind': 'mark', 'mark': 'code', 'icon': 'i-tabler-code', 'tooltip': { text: 'Code inline' }, 'aria-label': 'Code inline' },
+  customPre: { 'kind': 'codeBlock', 'icon': 'i-tabler-codeblock', 'tooltip': { text: 'Bloc de code' }, 'aria-label': 'Bloc de code' },
+
+  // source
+  code: { 'kind': 'sourceCode', 'icon': 'i-tabler-html', 'tooltip': { text: 'Code source' }, 'aria-label': 'Code source' },
 
   // clipboard
-  cut: { 'kind': 'cut', 'icon': 'i-lucide-scissors', 'tooltip': { text: 'Couper' }, 'aria-label': 'Couper' },
-  copy: { 'kind': 'copy', 'icon': 'i-lucide-copy', 'tooltip': { text: 'Copier' }, 'aria-label': 'Copier' },
-  paste: { 'kind': 'paste', 'icon': 'i-lucide-clipboard', 'tooltip': { text: 'Coller' }, 'aria-label': 'Coller' },
-  remove: { 'kind': 'deleteSelection', 'icon': 'i-lucide-trash-2', 'tooltip': { text: 'Supprimer' }, 'aria-label': 'Supprimer' },
-  selectall: { 'kind': 'selectAll', 'icon': 'i-lucide-text-select', 'tooltip': { text: 'Tout sélectionner' }, 'aria-label': 'Tout sélectionner' },
+  cut: { 'kind': 'cut', 'icon': 'i-tabler-scissors', 'tooltip': { text: 'Couper' }, 'aria-label': 'Couper' },
+  copy: { 'kind': 'copy', 'icon': 'i-tabler-copy', 'tooltip': { text: 'Copier' }, 'aria-label': 'Copier' },
+  paste: { 'kind': 'paste', 'icon': 'i-tabler-clipboard', 'tooltip': { text: 'Coller' }, 'aria-label': 'Coller' },
+  remove: { 'kind': 'deleteSelection', 'icon': 'i-tabler-trash', 'tooltip': { text: 'Supprimer' }, 'aria-label': 'Supprimer' },
+  selectall: { 'kind': 'selectAll', 'icon': 'i-tabler-select-all', 'tooltip': { text: 'Tout sélectionner' }, 'aria-label': 'Tout sélectionner' },
 
   // tools
-  removeformat: { 'kind': 'removeFormat', 'icon': 'i-lucide-remove-formatting', 'tooltip': { text: 'Supprimer le formatage' }, 'aria-label': 'Supprimer le formatage' },
+  removeformat: { 'kind': 'removeFormat', 'icon': 'i-tabler-clear-formatting', 'tooltip': { text: 'Supprimer le formatage' }, 'aria-label': 'Supprimer le formatage' },
 
   // view
-  visualaid: { 'kind': 'visualAid', 'icon': 'i-lucide-grid-2x2', 'tooltip': { text: 'Aides visuelles' }, 'aria-label': 'Aides visuelles' },
-  fullscreen: { 'kind': 'fullscreen', 'icon': 'i-lucide-maximize', 'tooltip': { text: 'Plein écran' }, 'aria-label': 'Plein écran' },
+  visualaid: { 'kind': 'visualAid', 'icon': 'i-tabler-grid-3x3', 'tooltip': { text: 'Aides visuelles' }, 'aria-label': 'Aides visuelles' },
+  fullscreen: { 'kind': 'fullscreen', 'icon': 'i-tabler-maximize', 'tooltip': { text: 'Plein écran' }, 'aria-label': 'Plein écran' },
 } as Record<WysiwygButtonKey, Item>
 
 /**

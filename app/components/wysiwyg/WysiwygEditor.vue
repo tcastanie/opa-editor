@@ -144,17 +144,17 @@ defineExpose({
       <UEditorToolbar
         :editor="editor"
         :items="[[
-          { icon: 'i-lucide-between-vertical-start', tooltip: { text: 'Ligne au-dessus' }, onClick: () => editor.chain().focus().addRowBefore().run() },
-          { icon: 'i-lucide-between-vertical-end', tooltip: { text: 'Ligne en dessous' }, onClick: () => editor.chain().focus().addRowAfter().run() },
-          { icon: 'i-lucide-between-horizontal-start', tooltip: { text: 'Colonne avant' }, onClick: () => editor.chain().focus().addColumnBefore().run() },
-          { icon: 'i-lucide-between-horizontal-end', tooltip: { text: 'Colonne après' }, onClick: () => editor.chain().focus().addColumnAfter().run() },
+          { icon: 'i-tabler-row-insert-top', tooltip: { text: 'Ligne au-dessus' }, onClick: () => editor.chain().focus().addRowBefore().run() },
+          { icon: 'i-tabler-row-insert-bottom', tooltip: { text: 'Ligne en dessous' }, onClick: () => editor.chain().focus().addRowAfter().run() },
+          { icon: 'i-tabler-column-insert-left', tooltip: { text: 'Colonne avant' }, onClick: () => editor.chain().focus().addColumnBefore().run() },
+          { icon: 'i-tabler-column-insert-right', tooltip: { text: 'Colonne après' }, onClick: () => editor.chain().focus().addColumnAfter().run() },
         ], [
-          { icon: 'i-lucide-table-cells-merge', tooltip: { text: 'Fusionner' }, onClick: () => editor.chain().focus().mergeCells().run() },
-          { icon: 'i-lucide-table-cells-split', tooltip: { text: 'Scinder' }, onClick: () => editor.chain().focus().splitCell().run() },
+          { icon: 'i-tabler-arrows-join', tooltip: { text: 'Fusionner' }, onClick: () => editor.chain().focus().mergeCells().run() },
+          { icon: 'i-tabler-arrows-split', tooltip: { text: 'Scinder' }, onClick: () => editor.chain().focus().splitCell().run() },
         ], [
-          { icon: 'i-lucide-rows-3', color: 'warning', tooltip: { text: 'Supprimer la ligne' }, onClick: () => editor.chain().focus().deleteRow().run() },
-          { icon: 'i-lucide-columns-3', color: 'warning', tooltip: { text: 'Supprimer la colonne' }, onClick: () => editor.chain().focus().deleteColumn().run() },
-          { icon: 'i-lucide-trash-2', color: 'error', tooltip: { text: 'Supprimer le tableau' }, onClick: () => editor.chain().focus().deleteTable().run() },
+          { icon: 'i-tabler-row-remove', color: 'warning', tooltip: { text: 'Supprimer la ligne' }, onClick: () => editor.chain().focus().deleteRow().run() },
+          { icon: 'i-tabler-column-remove', color: 'warning', tooltip: { text: 'Supprimer la colonne' }, onClick: () => editor.chain().focus().deleteColumn().run() },
+          { icon: 'i-tabler-trash', color: 'error', tooltip: { text: 'Supprimer le tableau' }, onClick: () => editor.chain().focus().deleteTable().run() },
         ]]"
         layout="bubble"
         :should-show="({ editor: current, view }: any) => current.state.selection instanceof CellSelection && view.hasFocus()"
@@ -163,11 +163,11 @@ defineExpose({
       <UEditorToolbar
         :editor="editor"
         :items="[[
-          { icon: 'i-lucide-align-left', tooltip: { text: 'Aligner à gauche' }, onClick: () => editor.chain().focus().setTextAlign('left').run() },
-          { icon: 'i-lucide-align-center', tooltip: { text: 'Centrer' }, onClick: () => editor.chain().focus().setTextAlign('center').run() },
-          { icon: 'i-lucide-align-right', tooltip: { text: 'Aligner à droite' }, onClick: () => editor.chain().focus().setTextAlign('right').run() },
+          { icon: 'i-tabler-align-left', tooltip: { text: 'Aligner à gauche' }, onClick: () => editor.chain().focus().setTextAlign('left').run() },
+          { icon: 'i-tabler-align-center', tooltip: { text: 'Centrer' }, onClick: () => editor.chain().focus().setTextAlign('center').run() },
+          { icon: 'i-tabler-align-right', tooltip: { text: 'Aligner à droite' }, onClick: () => editor.chain().focus().setTextAlign('right').run() },
         ], [
-          { icon: 'i-lucide-trash-2', tooltip: { text: 'Supprimer' }, onClick: () => editor.chain().focus().deleteSelection().run() },
+          { icon: 'i-tabler-trash', tooltip: { text: 'Supprimer' }, onClick: () => editor.chain().focus().deleteSelection().run() },
         ]]"
         layout="bubble"
         :should-show="({ editor: current, view }: any) => (current.isActive('image') || current.isActive('media')) && view.hasFocus()"

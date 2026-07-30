@@ -46,7 +46,7 @@ defineProps<{
         :editor="editor"
         mode="text"
         label="Couleur du texte"
-        icon="i-lucide-baseline"
+        icon="i-tabler-text-color"
       />
     </template>
 
@@ -55,7 +55,7 @@ defineProps<{
         :editor="editor"
         mode="background"
         label="Couleur de fond"
-        icon="i-lucide-highlighter"
+        icon="i-tabler-highlight"
       />
     </template>
 

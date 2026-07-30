@@ -31,24 +31,24 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
     if (CONVERTIBLE_TYPES.includes(nodeType)) {
       return [{
         label: 'Transformer en',
-        icon: 'i-lucide-repeat-2',
+        icon: 'i-tabler-repeat',
         children: [
-          { kind: 'paragraph', label: 'Paragraphe', icon: 'i-lucide-type' },
-          { kind: 'heading', level: 1, label: 'Titre 1', icon: 'i-lucide-heading-1' },
-          { kind: 'heading', level: 2, label: 'Titre 2', icon: 'i-lucide-heading-2' },
-          { kind: 'heading', level: 3, label: 'Titre 3', icon: 'i-lucide-heading-3' },
-          { kind: 'heading', level: 4, label: 'Titre 4', icon: 'i-lucide-heading-4' },
-          { kind: 'bulletList', label: 'Liste à puces', icon: 'i-lucide-list' },
-          { kind: 'orderedList', label: 'Liste numérotée', icon: 'i-lucide-list-ordered' },
-          { kind: 'taskList', label: 'Liste de tâches', icon: 'i-lucide-list-check' },
-          { kind: 'blockquote', label: 'Citation', icon: 'i-lucide-quote' },
-          { kind: 'codeBlock', label: 'Bloc de code', icon: 'i-lucide-square-code' },
+          { kind: 'paragraph', label: 'Paragraphe', icon: 'i-tabler-pilcrow' },
+          { kind: 'heading', level: 1, label: 'Titre 1', icon: 'i-tabler-h-1' },
+          { kind: 'heading', level: 2, label: 'Titre 2', icon: 'i-tabler-h-2' },
+          { kind: 'heading', level: 3, label: 'Titre 3', icon: 'i-tabler-h-3' },
+          { kind: 'heading', level: 4, label: 'Titre 4', icon: 'i-tabler-h-4' },
+          { kind: 'bulletList', label: 'Liste à puces', icon: 'i-tabler-list' },
+          { kind: 'orderedList', label: 'Liste numérotée', icon: 'i-tabler-list-numbers' },
+          { kind: 'taskList', label: 'Liste de tâches', icon: 'i-tabler-list-check' },
+          { kind: 'blockquote', label: 'Citation', icon: 'i-tabler-quote' },
+          { kind: 'codeBlock', label: 'Bloc de code', icon: 'i-tabler-codeblock' },
         ],
       }, {
         kind: 'clearFormatting',
         pos,
         label: 'Réinitialiser le formatage',
-        icon: 'i-lucide-rotate-ccw',
+        icon: 'i-tabler-rotate',
       }]
     }
 
@@ -57,7 +57,7 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
 
       return [{
         label: 'Télécharger l\'image',
-        icon: 'i-lucide-download',
+        icon: 'i-tabler-download',
         to: node?.attrs?.src,
         download: true,
       }]
@@ -66,7 +66,7 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
     if (nodeType === 'table') {
       return [{
         label: 'Vider le tableau',
-        icon: 'i-lucide-square-x',
+        icon: 'i-tabler-square-x',
         onSelect: () => {
           if (pos === undefined) return
 
@@ -108,10 +108,10 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
       { type: 'label', label: TYPE_LABELS[nodeType] ?? upperFirst(nodeType) },
       ...getTypeSpecificItems(editor, nodeType),
     ], [
-      { kind: 'duplicate', pos, label: 'Dupliquer', icon: 'i-lucide-copy' },
+      { kind: 'duplicate', pos, label: 'Dupliquer', icon: 'i-tabler-copy' },
       {
         label: 'Copier dans le presse-papiers',
-        icon: 'i-lucide-clipboard',
+        icon: 'i-tabler-clipboard',
         onSelect: async () => {
           const node = editor.state.doc.nodeAt(pos)
           if (node) {
@@ -120,10 +120,10 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
         },
       },
     ], [
-      { kind: 'moveUp', pos, label: 'Monter', icon: 'i-lucide-arrow-up' },
-      { kind: 'moveDown', pos, label: 'Descendre', icon: 'i-lucide-arrow-down' },
+      { kind: 'moveUp', pos, label: 'Monter', icon: 'i-tabler-arrow-up' },
+      { kind: 'moveDown', pos, label: 'Descendre', icon: 'i-tabler-arrow-down' },
     ], [
-      { kind: 'delete', pos, label: 'Supprimer', icon: 'i-lucide-trash-2' },
+      { kind: 'delete', pos, label: 'Supprimer', icon: 'i-tabler-trash' },
     ]], customHandlers) as DropdownMenuItem[][]
   }
 

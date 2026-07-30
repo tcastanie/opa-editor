@@ -77,7 +77,7 @@ function openLink() {
   >
     <UTooltip text="Lien">
       <UButton
-        icon="i-lucide-link"
+        icon="i-tabler-link"
         color="neutral"
         active-color="primary"
         variant="ghost"
@@ -101,7 +101,7 @@ function openLink() {
       >
         <div class="flex items-center mr-0.5">
           <UButton
-            icon="i-lucide-corner-down-left"
+            icon="i-tabler-corner-down-left"
             variant="ghost"
             size="sm"
             :disabled="!url && !active"
@@ -115,7 +115,7 @@ function openLink() {
           />
 
           <UButton
-            icon="i-lucide-external-link"
+            icon="i-tabler-external-link"
             color="neutral"
             variant="ghost"
             size="sm"
@@ -125,7 +125,7 @@ function openLink() {
           />
 
           <UButton
-            icon="i-lucide-trash-2"
+            icon="i-tabler-trash"
             color="neutral"
             variant="ghost"
             size="sm"

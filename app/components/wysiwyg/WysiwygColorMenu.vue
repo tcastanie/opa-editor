@@ -109,7 +109,7 @@ function unsetColor() {
 
           <UButton
             label="Aucune"
-            icon="i-lucide-slash"
+            icon="i-tabler-slash"
             color="neutral"
             variant="ghost"
             size="xs"

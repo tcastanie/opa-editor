@@ -73,7 +73,7 @@ function removeLink() {
   >
     <UTooltip text="Insérer un lien">
       <UButton
-        icon="i-lucide-link"
+        icon="i-tabler-link"
         color="neutral"
         active-color="primary"
         variant="ghost"
@@ -97,7 +97,7 @@ function removeLink() {
       >
         <div class="flex items-center mr-0.5">
           <UButton
-            icon="i-lucide-corner-down-left"
+            icon="i-tabler-corner-down-left"
             color="neutral"
             variant="ghost"
             size="sm"
@@ -112,7 +112,7 @@ function removeLink() {
           />
 
           <UButton
-            icon="i-lucide-trash-2"
+            icon="i-tabler-trash"
             color="neutral"
             variant="ghost"
             size="sm"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const items = [
-  { label: 'Notion-like', to: '/notion', icon: 'i-lucide-file-text' },
-  { label: 'WYSIWYG', to: '/wysiwyg', icon: 'i-lucide-panel-top' },
+  { label: 'Notion-like', to: '/notion', icon: 'i-tabler-text-caption' },
+  { label: 'WYSIWYG', to: '/wysiwyg', icon: 'i-tabler-layout-navbar' },
 ]
 </script>
 
@@ -10,7 +10,7 @@ const items = [
     <template #title>
       <div class="flex items-center gap-2">
         <UIcon
-          name="i-lucide-orbit"
+          name="i-tabler-atom-2"
           class="size-6 text-primary"
         />
         OPA Editor

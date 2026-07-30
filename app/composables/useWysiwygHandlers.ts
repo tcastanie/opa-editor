@@ -75,7 +75,7 @@ export function useWysiwygHandlers(options: UseWysiwygHandlersOptions = {}) {
       title: 'Presse-papiers indisponible',
       description: 'Le navigateur a refusé l\'accès. Utilisez les raccourcis clavier (Ctrl/⌘ + X, C, V).',
       color: 'warning',
-      icon: 'i-lucide-clipboard-x',
+      icon: 'i-tabler-clipboard-x',
     })
   }
 

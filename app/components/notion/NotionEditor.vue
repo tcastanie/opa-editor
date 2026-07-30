@@ -133,7 +133,7 @@ const extensions = [
       @node-change="onNodeChange"
     >
       <UButton
-        icon="i-lucide-plus"
+        icon="i-tabler-plus"
         color="neutral"
         variant="ghost"
         size="sm"
@@ -159,7 +159,7 @@ const extensions = [
           variant="ghost"
           active-variant="soft"
           size="sm"
-          icon="i-lucide-grip-vertical"
+          icon="i-tabler-grip-vertical"
           aria-label="Options du bloc"
           :active="open"
           :class="ui.handle()"

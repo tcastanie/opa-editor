@@ -47,7 +47,7 @@ async function onFileChange(file: File | File[] | null | undefined) {
   >
     <UTooltip text="Insérer une image">
       <UButton
-        icon="i-lucide-image"
+        icon="i-tabler-photo"
         color="neutral"
         active-color="primary"
         variant="ghost"
@@ -88,7 +88,7 @@ async function onFileChange(file: File | File[] | null | undefined) {
 
         <UAlert
           v-if="!isConfigured"
-          icon="i-lucide-plug"
+          icon="i-tabler-plug"
           color="neutral"
           variant="subtle"
           title="Aucun stockage branché"

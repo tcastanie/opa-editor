@@ -11,9 +11,9 @@ const props = defineProps<{
 }>()
 
 const KINDS = [
-  { label: 'Vidéo', value: 'video' as MediaKind, icon: 'i-lucide-film' },
-  { label: 'Audio', value: 'audio' as MediaKind, icon: 'i-lucide-music' },
-  { label: 'Intégration', value: 'iframe' as MediaKind, icon: 'i-lucide-code-xml' },
+  { label: 'Vidéo', value: 'video' as MediaKind, icon: 'i-tabler-movie' },
+  { label: 'Audio', value: 'audio' as MediaKind, icon: 'i-tabler-music' },
+  { label: 'Intégration', value: 'iframe' as MediaKind, icon: 'i-tabler-source-code' },
 ]
 
 const open = ref(false)
@@ -49,7 +49,7 @@ function insert() {
   >
     <UTooltip text="Insérer un média">
       <UButton
-        icon="i-lucide-film"
+        icon="i-tabler-movie"
         color="neutral"
         active-color="primary"
         variant="ghost"
@@ -98,7 +98,7 @@ function insert() {
 
         <UButton
           label="Insérer"
-          icon="i-lucide-plus"
+          icon="i-tabler-plus"
           size="sm"
           block
           :disabled="!canInsert"
