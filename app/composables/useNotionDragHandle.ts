@@ -17,6 +17,10 @@ const TYPE_LABELS: Record<string, string> = {
   codeBlock: 'Bloc de code',
   image: 'Image',
   imageUpload: 'Envoi d\'image',
+  video: 'Vidéo',
+  videoUpload: 'Envoi de vidéo',
+  audio: 'Audio',
+  audioUpload: 'Envoi de fichier audio',
   table: 'Tableau',
   horizontalRule: 'Séparateur',
 }
@@ -52,11 +56,13 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
       }]
     }
 
-    if (nodeType === 'image') {
+    const mediaPreset = editorMediaPresetOf(nodeType)
+
+    if (mediaPreset && mediaPreset.node === nodeType) {
       const node = pos !== undefined ? editor.state.doc.nodeAt(pos) : null
 
       return [{
-        label: 'Télécharger l\'image',
+        label: mediaPreset.downloadLabel,
         icon: 'i-tabler-download',
         to: node?.attrs?.src,
         download: true,

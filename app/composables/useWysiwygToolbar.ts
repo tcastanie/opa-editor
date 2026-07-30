@@ -55,6 +55,8 @@ const BUTTONS = {
   customLink: { slot: 'link', icon: 'i-tabler-link' },
   unlink: { 'kind': 'unlink', 'icon': 'i-tabler-unlink', 'tooltip': { text: 'Supprimer le lien' }, 'aria-label': 'Supprimer le lien' },
   customImage: { slot: 'image', icon: 'i-tabler-photo' },
+  customVideo: { slot: 'video', icon: 'i-tabler-video' },
+  customAudio: { slot: 'audio', icon: 'i-tabler-music' },
   table: { slot: 'table', icon: 'i-tabler-table' },
   insertdatetime: { slot: 'dateTime', icon: 'i-tabler-clock-plus' },
 

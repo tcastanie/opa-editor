@@ -9,6 +9,7 @@ import { CharacterCount } from '@tiptap/extensions'
 import { CellSelection } from '@tiptap/pm/tables'
 import { useEventListener } from '@vueuse/core'
 import { CustomImage } from '~/utils/tiptap/custom-image'
+import { CustomAudio, CustomVideo } from '~/utils/tiptap/media'
 import { PreKeymap } from '~/utils/tiptap/pre-keymap'
 import { PreservedAttributes } from '~/utils/tiptap/preserved-attributes'
 
@@ -61,6 +62,8 @@ const extensions = [
       class: 'inline-block!',
     },
   }),
+  CustomVideo,
+  CustomAudio,
   TableKit.configure({ table: { resizable: true } }),
   PreKeymap,
   CharacterCount,
@@ -158,6 +161,17 @@ defineExpose({
         ]]"
         layout="bubble"
         :should-show="({ editor: current, view }: any) => current.isActive('image') && view.hasFocus()"
+      />
+
+      <!-- Vidéo et audio sont des blocs : l'alignement du texte n'a pas prise
+           sur eux, la barre se limite donc à la suppression. -->
+      <UEditorToolbar
+        :editor="editor"
+        :items="[[
+          { icon: 'i-tabler-trash', tooltip: { text: 'Supprimer' }, onClick: () => editor.chain().focus().deleteSelection().run() },
+        ]]"
+        layout="bubble"
+        :should-show="({ editor: current, view }: any) => (current.isActive('video') || current.isActive('audio')) && view.hasFocus()"
       />
     </UEditor>
 

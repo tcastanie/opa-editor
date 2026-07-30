@@ -2,20 +2,26 @@
 import type { Editor } from '@tiptap/vue-3'
 
 /**
- * `customImage` du manifeste. Aucun stockage n'est câblé ici : le fichier part
- * dans `onUpload`, le point d'extension à brancher sur votre backend.
+ * `customImage`, `customVideo` et `customAudio` du manifeste : un seul popover,
+ * paramétré par le préréglage du média. Aucun stockage n'est câblé ici, le
+ * fichier part dans `onUpload`, le point d'extension à brancher sur votre
+ * backend.
  */
-const { editor, onUpload } = defineProps<{
+const { editor, kind, onUpload } = defineProps<{
   editor: Editor
+  kind: EditorMediaKind
   onUpload?: EditorUploadHandler
 }>()
 
+const preset = computed(() => editorMediaPresets[kind])
+
 const open = ref(false)
-const alt = ref('')
+/** `alt` pour une image, `title` pour les médias temporels. */
+const description = ref('')
 
 const { upload, pending, error, isConfigured } = useEditorUpload(() => onUpload)
 
-const active = computed(() => editor.isActive('image'))
+const active = computed(() => editor.isActive(preset.value.node))
 
 async function onFileChange(file: File | File[] | null | undefined) {
   const selected = Array.isArray(file) ? file[0] : file
@@ -28,13 +34,12 @@ async function onFileChange(file: File | File[] | null | undefined) {
     return
   }
 
-  editor.chain().focus().setImage({
-    src: result.src,
-    alt: alt.value || result.alt || selected.name,
-    title: result.title,
+  editor.chain().focus().insertContent({
+    type: preset.value.node,
+    attrs: editorMediaAttributes(kind, result, { label: description.value, fallback: selected.name }),
   }).run()
 
-  alt.value = ''
+  description.value = ''
   open.value = false
 }
 </script>
@@ -45,9 +50,9 @@ async function onFileChange(file: File | File[] | null | undefined) {
     :modal="false"
     :ui="{ content: 'p-3 w-80' }"
   >
-    <UTooltip text="Insérer une image">
+    <UTooltip :text="preset.insertLabel">
       <UButton
-        icon="i-tabler-photo"
+        :icon="preset.icon"
         color="neutral"
         active-color="primary"
         variant="ghost"
@@ -56,28 +61,28 @@ async function onFileChange(file: File | File[] | null | undefined) {
         :active="active"
         :loading="pending"
         :disabled="!editor.isEditable"
-        aria-label="Insérer une image"
+        :aria-label="preset.insertLabel"
       />
     </UTooltip>
 
     <template #content>
       <div class="flex flex-col gap-3">
         <UFormField
-          label="Texte alternatif"
+          :label="preset.fieldLabel"
           hint="Optionnel"
           size="sm"
         >
           <UInput
-            v-model="alt"
-            placeholder="Description de l'image"
+            v-model="description"
+            :placeholder="preset.fieldPlaceholder"
             class="w-full"
           />
         </UFormField>
 
         <UFileUpload
-          accept="image/*"
-          label="Déposez une image ou cliquez"
-          :description="error ?? 'SVG, PNG, JPG ou GIF'"
+          :accept="preset.accept"
+          :label="preset.dropLabel"
+          :description="error ?? preset.formats"
           :preview="false"
           :multiple="false"
           size="sm"

@@ -1,6 +1,4 @@
 /**
- * Transcription du manifeste `wysiwyg-manifest.yaml` (Directus -> TipTap).
- *
  * Ce fichier ne contient que des **données** : les groupes, leur priorité et
  * leur épinglage, et les tailles de police. La construction des items de barre
  * d'outils vit dans `useWysiwygToolbar` ; les formats de date, partagés avec
@@ -15,7 +13,7 @@ export type WysiwygButtonKey
     | 'numlist' | 'bullist' | 'indent' | 'outdent'
     | 'fontsize' | 'forecolor' | 'backcolor'
     | 'blockquote' | 'hr'
-    | 'customLink' | 'unlink' | 'customImage' | 'table' | 'insertdatetime'
+    | 'customLink' | 'unlink' | 'customImage' | 'customVideo' | 'customAudio' | 'table' | 'insertdatetime'
     | 'customInlineCode' | 'code' | 'customPre'
     | 'cut' | 'copy' | 'paste' | 'remove' | 'selectall'
     | 'removeformat'
@@ -42,7 +40,7 @@ export const wysiwygToolbarGroups: WysiwygToolbarGroup[] = [
   { id: 'align', priority: 60, pinned: true, popover: true, icon: 'i-tabler-align-left', label: 'Alignement', keys: ['alignleft', 'aligncenter', 'alignright', 'alignjustify', 'alignnone'] },
   { id: 'block', priority: 60, keys: ['blockquote', 'hr'] },
   { id: 'list', priority: 55, pinned: true, keys: ['numlist', 'bullist', 'indent', 'outdent'] },
-  { id: 'insert', priority: 50, keys: ['customLink', 'unlink', 'customImage', 'table', 'insertdatetime'] },
+  { id: 'insert', priority: 50, keys: ['customLink', 'unlink', 'customImage', 'customVideo', 'customAudio', 'table', 'insertdatetime'] },
   { id: 'code', priority: 40, keys: ['customInlineCode', 'customPre'] },
   { id: 'source', priority: 35, keys: ['code'] },
   { id: 'clipboard', priority: 30, keys: ['cut', 'copy', 'paste', 'remove', 'selectall'] },

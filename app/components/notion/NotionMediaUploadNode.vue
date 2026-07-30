@@ -2,7 +2,10 @@
 import type { NodeViewProps } from '@tiptap/vue-3'
 import { NodeViewWrapper } from '@tiptap/vue-3'
 
-const { editor, getPos } = defineProps<NodeViewProps>()
+const { editor, node, getPos } = defineProps<NodeViewProps>()
+
+/** Le même composant sert les trois zones de dépôt : le nœud dit laquelle. */
+const preset = computed(() => editorMediaPresetOf(node.type.name) ?? editorMediaPresets.image)
 
 /**
  * Le gestionnaire d'envoi est fourni par la page via `provide`, parce qu'une
@@ -33,7 +36,10 @@ async function onFileChange(file: File | File[] | null | undefined) {
     .chain()
     .focus()
     .deleteRange({ from: pos, to: pos + 1 })
-    .setImage({ src: result.src, alt: result.alt ?? selected.name })
+    .insertContentAt(pos, {
+      type: preset.value.node,
+      attrs: editorMediaAttributes(preset.value.kind, result, { fallback: selected.name }),
+    })
     .run()
 }
 </script>
@@ -41,9 +47,9 @@ async function onFileChange(file: File | File[] | null | undefined) {
 <template>
   <NodeViewWrapper>
     <UFileUpload
-      accept="image/*"
-      label="Envoyer une image"
-      :description="error ?? (isConfigured ? 'SVG, PNG, JPG ou GIF' : 'Aucun stockage branché')"
+      :accept="preset.accept"
+      :label="preset.uploadLabel"
+      :description="error ?? (isConfigured ? preset.formats : 'Aucun stockage branché')"
       :preview="false"
       :multiple="false"
       class="min-h-48"
@@ -52,7 +58,7 @@ async function onFileChange(file: File | File[] | null | undefined) {
     >
       <template #leading>
         <UAvatar
-          :icon="error ? 'i-tabler-alert-circle' : pending ? 'i-tabler-loader-2' : 'i-tabler-photo'"
+          :icon="error ? 'i-tabler-alert-circle' : pending ? 'i-tabler-loader-2' : preset.icon"
           size="xl"
           :ui="{ icon: [pending && 'animate-spin', error && 'text-error'] }"
         />

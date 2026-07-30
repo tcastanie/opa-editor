@@ -6,7 +6,8 @@ import { TaskList, TaskItem } from '@tiptap/extension-list'
 import { TableKit } from '@tiptap/extension-table'
 import { CellSelection } from '@tiptap/pm/tables'
 import { CodeBlockShiki } from 'tiptap-extension-code-block-shiki'
-import { ImageUpload } from './ImageUploadExtension'
+import { CustomAudio, CustomVideo } from '~/utils/tiptap/media'
+import { mediaUploadExtensions } from './MediaUploadExtension'
 
 /**
  * Ce composant, ses frères du dossier `notion/`, les composables `useNotion*`
@@ -26,13 +27,20 @@ provide('editorUploadHandler', computed(() => onUpload))
 
 const sourceCodeOpen = ref(false)
 
-const customHandlers = {
-  imageUpload: {
-    canExecute: (editor: Editor) => editor.can().insertContent({ type: 'imageUpload' }),
-    execute: (editor: Editor) => editor.chain().focus().insertContent({ type: 'imageUpload' }),
-    isActive: (editor: Editor) => editor.isActive('imageUpload'),
+/** Insère la zone de dépôt d'un média ; elle se remplace après l'envoi. */
+function mediaUploadHandler(node: string) {
+  return {
+    canExecute: (editor: Editor) => editor.can().insertContent({ type: node }),
+    execute: (editor: Editor) => editor.chain().focus().insertContent({ type: node }),
+    isActive: (editor: Editor) => editor.isActive(node),
     isDisabled: undefined,
-  },
+  }
+}
+
+const customHandlers = {
+  imageUpload: mediaUploadHandler(editorMediaPresets.image.uploadNode),
+  videoUpload: mediaUploadHandler(editorMediaPresets.video.uploadNode),
+  audioUpload: mediaUploadHandler(editorMediaPresets.audio.uploadNode),
   table: {
     canExecute: (editor: Editor) => editor.can().insertTable({ rows: 3, cols: 3, withHeaderRow: true }),
     execute: (editor: Editor) => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }),
@@ -64,7 +72,13 @@ const emojiItems: EditorEmojiMenuItem[] = gitHubEmojis.filter(emoji => !emoji.na
 
 const { items: suggestionItems } = useNotionSuggestions(customHandlers)
 const { getItems: getDragHandleItems, onNodeChange } = useNotionDragHandle(customHandlers)
-const { toolbarItems, bubbleToolbarItems, getImageToolbarItems, getTableToolbarItems } = useNotionToolbar(customHandlers)
+const { toolbarItems, bubbleToolbarItems, getMediaToolbarItems, getTableToolbarItems } = useNotionToolbar(customHandlers)
+
+/** Vrai sur un média inséré comme sur sa zone de dépôt. */
+function isMediaActive(editor: Editor) {
+  return editorMediaKinds.some(kind => editor.isActive(editorMediaPresets[kind].node)
+    || editor.isActive(editorMediaPresets[kind].uploadNode))
+}
 
 const extensions = [
   CodeBlockShiki.configure({
@@ -75,7 +89,10 @@ const extensions = [
     },
   }),
   Emoji.configure({ emojis: gitHubEmojis, enableEmoticons: true }),
-  ImageUpload,
+  // L'image vient de Nuxt UI ; vidéo et audio n'ont pas d'équivalent officiel.
+  CustomVideo,
+  CustomAudio,
+  ...mediaUploadExtensions,
   TableKit,
   TaskList,
   TaskItem,
@@ -114,7 +131,7 @@ const extensions = [
       :items="bubbleToolbarItems"
       layout="bubble"
       :should-show="({ editor: current, view, state }: any) => {
-        if (current.isActive('imageUpload') || current.isActive('image') || state.selection instanceof CellSelection) {
+        if (isMediaActive(current) || state.selection instanceof CellSelection) {
           return false
         }
         return view.hasFocus() && !state.selection.empty
@@ -127,9 +144,9 @@ const extensions = [
 
     <UEditorToolbar
       :editor="editor"
-      :items="getImageToolbarItems(editor)"
+      :items="getMediaToolbarItems(editor)"
       layout="bubble"
-      :should-show="({ editor: current, view }: any) => current.isActive('image') && view.hasFocus()"
+      :should-show="({ editor: current, view }: any) => editorMediaKinds.some(kind => current.isActive(editorMediaPresets[kind].node)) && view.hasFocus()"
     />
 
     <UEditorToolbar

@@ -14,8 +14,7 @@ export interface PreservedAttributesOptions {
 
 /**
  * Conserve `id`, `class` et `style` sur les nœuds lors d'un aller-retour HTML.
- * Équivalent de `PreservedAttributes` du manifeste Directus : sans ça, TipTap
- * jette silencieusement tout attribut qu'aucune extension ne déclare.
+ * Sans ça, TipTap jette silencieusement tout attribut qu'aucune extension ne déclare.
  */
 export const PreservedAttributes = Extension.create<PreservedAttributesOptions>({
   name: 'preservedAttributes',
@@ -31,6 +30,8 @@ export const PreservedAttributes = Extension.create<PreservedAttributesOptions>(
         'listItem',
         'codeBlock',
         'image',
+        'video',
+        'audio',
         'table',
         'tableRow',
         'tableCell',

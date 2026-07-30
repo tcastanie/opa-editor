@@ -14,9 +14,19 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
     'aria-label': 'Rétablir',
   }], [{
     'kind': 'imageUpload',
-    'aria-label': 'Image',
+    'aria-label': editorMediaPresets.image.label,
     'icon': 'i-tabler-photo-plus',
-    'tooltip': { text: 'Ajouter une image' },
+    'tooltip': { text: editorMediaPresets.image.insertLabel },
+  }, {
+    'kind': 'videoUpload',
+    'aria-label': editorMediaPresets.video.label,
+    'icon': 'i-tabler-video-plus',
+    'tooltip': { text: editorMediaPresets.video.insertLabel },
+  }, {
+    'kind': 'audioUpload',
+    'aria-label': editorMediaPresets.audio.label,
+    'icon': 'i-tabler-music-plus',
+    'tooltip': { text: editorMediaPresets.audio.insertLabel },
   }, {
     'icon': 'i-tabler-clock-plus',
     'tooltip': { text: 'Insérer date/heure' },
@@ -121,13 +131,32 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
     icon: 'i-tabler-link',
   }, {
     'kind': 'imageUpload',
-    'icon': 'i-tabler-photo',
-    'tooltip': { text: 'Image' },
-    'aria-label': 'Image',
+    'icon': editorMediaPresets.image.icon,
+    'tooltip': { text: editorMediaPresets.image.insertLabel },
+    'aria-label': editorMediaPresets.image.label,
+  }, {
+    'kind': 'videoUpload',
+    'icon': editorMediaPresets.video.icon,
+    'tooltip': { text: editorMediaPresets.video.insertLabel },
+    'aria-label': editorMediaPresets.video.label,
+  }, {
+    'kind': 'audioUpload',
+    'icon': editorMediaPresets.audio.icon,
+    'tooltip': { text: editorMediaPresets.audio.insertLabel },
+    'aria-label': editorMediaPresets.audio.label,
   }]]
 
-  const getImageToolbarItems = (editor: Editor): EditorToolbarItem<T>[][] => {
+  /** Barre flottante d'un média inséré : image, vidéo ou audio. */
+  const getMediaToolbarItems = (editor: Editor): EditorToolbarItem<T>[][] => {
     const node = editor.state.doc.nodeAt(editor.state.selection.from)
+
+    // Le nœud est relu au clic : la sélection a pu bouger depuis le rendu.
+    const selectedMedia = () => {
+      const pos = editor.state.selection.from
+      const current = editor.state.doc.nodeAt(pos)
+
+      return editorMediaPresetOf(current?.type.name) && current ? { pos, node: current } : null
+    }
 
     return [[{
       'icon': 'i-tabler-download',
@@ -140,13 +169,13 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
       'tooltip': { text: 'Remplacer' },
       'aria-label': 'Remplacer',
       'onClick': () => {
-        const pos = editor.state.selection.from
-        const current = editor.state.doc.nodeAt(pos)
+        const selected = selectedMedia()
+        const uploadNode = editorMediaPresetOf(selected?.node.type.name)?.uploadNode
 
-        if (current?.type.name === 'image') {
+        if (selected && uploadNode) {
           editor.chain().focus()
-            .deleteRange({ from: pos, to: pos + current.nodeSize })
-            .insertContentAt(pos, { type: 'imageUpload' })
+            .deleteRange({ from: selected.pos, to: selected.pos + selected.node.nodeSize })
+            .insertContentAt(selected.pos, { type: uploadNode })
             .run()
         }
       },
@@ -155,11 +184,10 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
       'tooltip': { text: 'Supprimer' },
       'aria-label': 'Supprimer',
       'onClick': () => {
-        const pos = editor.state.selection.from
-        const current = editor.state.doc.nodeAt(pos)
+        const selected = selectedMedia()
 
-        if (current?.type.name === 'image') {
-          editor.chain().focus().deleteRange({ from: pos, to: pos + current.nodeSize }).run()
+        if (selected) {
+          editor.chain().focus().deleteRange({ from: selected.pos, to: selected.pos + selected.node.nodeSize }).run()
         }
       },
     }]]
@@ -205,7 +233,7 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
   return {
     toolbarItems,
     bubbleToolbarItems,
-    getImageToolbarItems,
+    getMediaToolbarItems,
     getTableToolbarItems,
   }
 }

@@ -50,8 +50,25 @@ defineProps<{
     </template>
 
     <template #image>
-      <WysiwygImagePopover
+      <WysiwygMediaPopover
         :editor="editor"
+        kind="image"
+        :on-upload="onUpload"
+      />
+    </template>
+
+    <template #video>
+      <WysiwygMediaPopover
+        :editor="editor"
+        kind="video"
+        :on-upload="onUpload"
+      />
+    </template>
+
+    <template #audio>
+      <WysiwygMediaPopover
+        :editor="editor"
+        kind="audio"
         :on-upload="onUpload"
       />
     </template>

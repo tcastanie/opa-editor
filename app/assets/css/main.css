@@ -16,6 +16,28 @@ html.dark .tiptap .shiki span {
 }
 
 /* ---------------------------------------------------------------------------
+   Médias (les deux templates)
+   -------------------------------------------------------------------------*/
+
+.tiptap video,
+.tiptap audio {
+  display: block;
+  max-width: 100%;
+  margin-block: 1em;
+  border-radius: var(--ui-radius);
+}
+
+.tiptap audio {
+  width: 100%;
+}
+
+.tiptap video.ProseMirror-selectednode,
+.tiptap audio.ProseMirror-selectednode {
+  outline: 2px solid var(--ui-color-primary-500);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
    Template WYSIWYG
    -------------------------------------------------------------------------*/
 

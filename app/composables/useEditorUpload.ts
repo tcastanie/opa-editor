@@ -4,13 +4,19 @@ export interface EditorUploadResult {
   title?: string
   width?: string
   height?: string
+  /** Vidéo uniquement : image d'attente. */
+  poster?: string
 }
 
+/**
+ * Reçoit indifféremment images, vidéos et fichiers audio : c'est au
+ * gestionnaire de discriminer sur `file.type` s'il le souhaite.
+ */
 export type EditorUploadHandler = (file: File) => EditorUploadResult | string | Promise<EditorUploadResult | string>
 
 /**
- * Gestionnaire par défaut : crée une URL d'objet locale. L'image s'affiche
- * immédiatement mais n'est **pas** persistée — l'URL meurt avec l'onglet.
+ * Gestionnaire par défaut : crée une URL d'objet locale. Le média s'affiche
+ * immédiatement mais n'est **pas** persisté — l'URL meurt avec l'onglet.
  * C'est volontairement un bouchon : branchez le vôtre via `onUpload`.
  */
 export const defaultUploadHandler: EditorUploadHandler = (file) => {

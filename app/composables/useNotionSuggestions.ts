@@ -62,8 +62,16 @@ export function useNotionSuggestions<T extends EditorCustomHandlers>(_customHand
     icon: 'i-tabler-mood-plus',
   }, {
     kind: 'imageUpload',
-    label: 'Image',
-    icon: 'i-tabler-photo',
+    label: editorMediaPresets.image.label,
+    icon: editorMediaPresets.image.icon,
+  }, {
+    kind: 'videoUpload',
+    label: editorMediaPresets.video.label,
+    icon: editorMediaPresets.video.icon,
+  }, {
+    kind: 'audioUpload',
+    label: editorMediaPresets.audio.label,
+    icon: editorMediaPresets.audio.icon,
   }, {
     kind: 'table',
     label: 'Tableau',
