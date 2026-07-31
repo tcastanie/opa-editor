@@ -67,7 +67,7 @@ const content = ref(`<h1>Éditeur notion-like</h1>
 <div data-type="video-upload"></div>
 <div data-type="audio-upload"></div>
 <div data-type="youtube-embed"></div>
-<p>Mentionnez quelqu'un avec <code>@</code> et ajoutez un émoji avec <code>:</code> 🚀</p>`)
+<p>Mentionnez quelqu'un avec <code>@</code>, et piochez un émoji dans la barre d'outils ou via <code>/</code> 🚀</p>`)
 </script>
 
 <template>

@@ -18,8 +18,8 @@ import { CustomYoutube } from '~/utils/tiptap/youtube'
  * Éditeur WYSIWYG « barre d'outils classique »
  * Auto-contenu : ce composant, ses frères du dossier `wysiwyg/`, les composables
  * `useWysiwyg*`, `app/utils/tiptap/` et les pièces partagées avec l'éditeur
- * notion (`EditorSourceCodeModal`, `app/utils/date-time.ts`) suffisent à le
- * porter dans un autre projet.
+ * notion (`EditorSourceCodeModal`, `EditorEmojiPopover`,
+ * `app/utils/date-time.ts`) suffisent à le porter dans un autre projet.
  */
 const { toolbarKeys = wysiwygToolbarAll, placeholder = 'Rédigez votre contenu…' } = defineProps<{
   /** Boutons affichés, parmi les clés du manifeste. */

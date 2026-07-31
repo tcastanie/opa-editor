@@ -13,6 +13,10 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
     'tooltip': { text: 'Rétablir' },
     'aria-label': 'Rétablir',
   }], [{
+    // Panneau branché dans `NotionEditor.vue`, comme le lien de la barre flottante.
+    slot: 'emoji' as const,
+    icon: 'i-tabler-mood-smile',
+  }, {
     'kind': 'imageUpload',
     'aria-label': editorMediaPresets.image.label,
     'icon': 'i-tabler-photo-plus',

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import type { EditorCustomHandlers, EditorEmojiMenuItem, EditorMentionMenuItem } from '@nuxt/ui'
+import type { EditorCustomHandlers, EditorMentionMenuItem } from '@nuxt/ui'
 import type { Editor } from '@tiptap/core'
-import { Emoji, gitHubEmojis } from '@tiptap/extension-emoji'
 import { TaskList, TaskItem } from '@tiptap/extension-list'
 import { TableKit } from '@tiptap/extension-table'
 import { CellSelection } from '@tiptap/pm/tables'
@@ -14,7 +13,8 @@ import { YoutubeEmbed } from './YoutubeEmbedExtension'
 /**
  * Ce composant, ses frères du dossier `notion/`, les composables `useNotion*`
  * et les pièces partagées avec l'éditeur WYSIWYG (`EditorSourceCodeModal`,
- * `app/utils/date-time.ts`) suffisent à le porter dans un autre projet.
+ * `EditorEmojiPopover`, `app/utils/date-time.ts`) suffisent à le porter dans un
+ * autre projet.
  */
 const { onUpload, mentions = [], placeholder = 'Écrivez, ou tapez « / » pour les commandes…' } = defineProps<{
   /** Point d'extension pour l'envoi de fichiers. Voir `useEditorUpload`. */
@@ -28,6 +28,7 @@ const model = defineModel<string>({ default: '' })
 provide('editorUploadHandler', computed(() => onUpload))
 
 const sourceCodeOpen = ref(false)
+const emojiPopover = useTemplateRef('emojiPopover')
 
 /**
  * Insère le bloc d'attente d'un média ; il se remplace tout seul une fois le
@@ -62,6 +63,17 @@ const customHandlers = {
     isActive: () => false,
     isDisabled: undefined,
   },
+  // Le panneau vit dans la barre d'outils : on l'ouvre au curseur, là où
+  // l'émoji sera inséré. La chaîne renvoyée laisse le document intact.
+  emoji: {
+    canExecute: (editor: Editor) => editor.can().insertContent(' '),
+    execute: (editor: Editor) => {
+      emojiPopover.value?.openAtCaret()
+      return editor.chain()
+    },
+    isActive: () => false,
+    isDisabled: undefined,
+  },
   // Ouvre la modale ; la chaîne renvoyée laisse le document intact.
   sourceCode: {
     canExecute: () => true,
@@ -73,8 +85,6 @@ const customHandlers = {
     isDisabled: undefined,
   },
 } satisfies EditorCustomHandlers
-
-const emojiItems: EditorEmojiMenuItem[] = gitHubEmojis.filter(emoji => !emoji.name.startsWith('regional_indicator_'))
 
 const { items: suggestionItems } = useNotionSuggestions(customHandlers)
 const { getItems: getDragHandleItems, onNodeChange } = useNotionDragHandle(customHandlers)
@@ -96,7 +106,6 @@ const extensions = [
       dark: 'catppuccin-mocha',
     },
   }),
-  Emoji.configure({ emojis: gitHubEmojis, enableEmoticons: true }),
   // L'image vient de Nuxt UI ; vidéo et audio n'ont pas d'équivalent officiel.
   CustomVideo,
   CustomAudio,
@@ -128,7 +137,15 @@ const extensions = [
         :editor="editor"
         :items="toolbarItems"
         size="lg"
-      />
+      >
+        <template #emoji>
+          <EditorEmojiPopover
+            ref="emojiPopover"
+            :editor="editor"
+            size="lg"
+          />
+        </template>
+      </UEditorToolbar>
     </div>
 
     <EditorSourceCodeModal
@@ -164,11 +181,6 @@ const extensions = [
       :items="getTableToolbarItems(editor)"
       layout="bubble"
       :should-show="({ editor: current, view }: any) => current.state.selection instanceof CellSelection && view.hasFocus()"
-    />
-
-    <UEditorEmojiMenu
-      :editor="editor"
-      :items="emojiItems"
     />
 
     <UEditorMentionMenu

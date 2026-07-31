@@ -24,7 +24,6 @@ export default defineNuxtConfig({
       include: [
         '@tiptap/core',
         '@tiptap/extensions',
-        '@tiptap/extension-emoji',
         '@tiptap/extension-image',
         '@tiptap/extension-list',
         '@tiptap/extension-subscript',
@@ -44,6 +43,7 @@ export default defineNuxtConfig({
         '@nuxt/ui > prosemirror-view',
         '@nuxt/ui > prosemirror-gapcursor',
         'tiptap-extension-code-block-shiki',
+        'vue-frimousse',
       ],
     },
   },

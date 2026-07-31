@@ -13,7 +13,7 @@ export type WysiwygButtonKey
     | 'numlist' | 'bullist' | 'indent' | 'outdent'
     | 'fontsize' | 'forecolor' | 'backcolor'
     | 'blockquote' | 'hr'
-    | 'customLink' | 'unlink' | 'customImage' | 'customVideo' | 'customAudio' | 'customYoutube' | 'table' | 'insertdatetime'
+    | 'customLink' | 'unlink' | 'customImage' | 'customVideo' | 'customAudio' | 'customYoutube' | 'emoji' | 'table' | 'insertdatetime'
     | 'customInlineCode' | 'code' | 'customPre'
     | 'cut' | 'copy' | 'paste' | 'remove' | 'selectall'
     | 'removeformat'
@@ -40,7 +40,7 @@ export const wysiwygToolbarGroups: WysiwygToolbarGroup[] = [
   { id: 'align', priority: 60, pinned: true, popover: true, icon: 'i-tabler-align-left', label: 'Alignement', keys: ['alignleft', 'aligncenter', 'alignright', 'alignjustify', 'alignnone'] },
   { id: 'block', priority: 60, keys: ['blockquote', 'hr'] },
   { id: 'list', priority: 55, pinned: true, keys: ['numlist', 'bullist', 'indent', 'outdent'] },
-  { id: 'insert', priority: 50, keys: ['customLink', 'unlink', 'customImage', 'customVideo', 'customAudio', 'customYoutube', 'table', 'insertdatetime'] },
+  { id: 'insert', priority: 50, keys: ['customLink', 'unlink', 'customImage', 'customVideo', 'customAudio', 'customYoutube', 'emoji', 'table', 'insertdatetime'] },
   { id: 'code', priority: 40, keys: ['customInlineCode', 'customPre'] },
   { id: 'source', priority: 35, keys: ['code'] },
   { id: 'clipboard', priority: 30, keys: ['cut', 'copy', 'paste', 'remove', 'selectall'] },
@@ -55,7 +55,7 @@ export const wysiwygToolbarDefault: WysiwygButtonKey[] = [
   'numlist', 'bullist',
   'removeformat',
   'blockquote',
-  'customLink', 'customImage',
+  'customLink', 'customImage', 'emoji',
   'hr', 'code', 'fullscreen',
 ]
 

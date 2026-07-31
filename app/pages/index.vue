@@ -23,7 +23,7 @@ const templates = [{
     <UMain>
       <UPageHero description="Templates TipTap prêt à être utilisés">
         <template #title>
-          <span class="inline-flex rounded-2xl px-8 py-6 ring ring-primary/20 shadow-[0_0_80px_-20px] shadow-primary/50">
+          <span class="inline-flex rounded-2xl dark:bg-black px-8 py-6 ring ring-primary/20 shadow-[0_0_80px_-20px] shadow-primary/50">
             <img
               src="/opa-editor-logo.jpg"
               alt="OPA Editor"

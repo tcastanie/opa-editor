@@ -58,6 +58,7 @@ const BUTTONS = {
   customVideo: { slot: 'video', icon: 'i-tabler-video' },
   customAudio: { slot: 'audio', icon: 'i-tabler-music' },
   customYoutube: { slot: 'youtube', icon: 'i-tabler-brand-youtube' },
+  emoji: { slot: 'emoji', icon: 'i-tabler-mood-smile' },
   table: { slot: 'table', icon: 'i-tabler-table' },
   insertdatetime: { slot: 'dateTime', icon: 'i-tabler-clock-plus' },
 

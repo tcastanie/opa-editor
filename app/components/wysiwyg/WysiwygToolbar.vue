@@ -77,6 +77,10 @@ defineProps<{
       <WysiwygYoutubePopover :editor="editor" />
     </template>
 
+    <template #emoji>
+      <EditorEmojiPopover :editor="editor" />
+    </template>
+
     <template #table>
       <WysiwygTableMenu :editor="editor" />
     </template>
