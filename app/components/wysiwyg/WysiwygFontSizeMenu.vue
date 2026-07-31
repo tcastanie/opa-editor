@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
+import { wysiwygFontSizeText } from '~/utils/i18n/wysiwyg-strings'
 
 const { editor, items = fontSizes, width = 80 } = defineProps<{
   editor: Editor
@@ -10,7 +11,7 @@ const { editor, items = fontSizes, width = 80 } = defineProps<{
 const current = computed<string | null>(() => editor.getAttributes('textStyle')?.fontSize ?? null)
 
 const currentLabel = computed(() =>
-  items.find(item => item.value === current.value)?.label ?? items[0]?.label ?? 'Taille de police',
+  items.find(item => item.value === current.value)?.label ?? items[0]?.label ?? wysiwygFontSizeText.label,
 )
 
 const disabled = computed(() => !editor.isEditable || !editor.schema.marks.textStyle)
@@ -40,14 +41,14 @@ const menuItems = computed(() => items.map(option => ({
     :content="{ align: 'start' }"
     size="sm"
   >
-    <UTooltip text="Taille de police">
+    <UTooltip :text="wysiwygFontSizeText.label">
       <UButton
         color="neutral"
         variant="ghost"
         size="sm"
         :disabled="disabled"
         :label="currentLabel"
-        aria-label="Taille de police"
+        :aria-label="wysiwygFontSizeText.label"
         trailing-icon="i-tabler-chevron-down"
         class="justify-between shrink-0"
         :style="{ width: `${width}px` }"

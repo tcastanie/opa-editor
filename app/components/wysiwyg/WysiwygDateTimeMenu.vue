@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
+import { wysiwygDateTimeText } from '~/utils/i18n/wysiwyg-strings'
 
 /** Équivalent du `DateTimeMenu` du manifeste (`insertdatetime`). */
 const { editor } = defineProps<{
@@ -22,14 +23,14 @@ const menuItems = computed(() => dateTimeMenuItems().map(entry => ({
     :content="{ align: 'start' }"
     size="sm"
   >
-    <UTooltip text="Insérer date/heure">
+    <UTooltip :text="wysiwygDateTimeText.insertDateTime">
       <UButton
         icon="i-tabler-clock-plus"
         color="neutral"
         variant="ghost"
         size="sm"
         :disabled="!editor.isEditable"
-        aria-label="Insérer date/heure"
+        :aria-label="wysiwygDateTimeText.insertDateTime"
       />
     </UTooltip>
   </UDropdownMenu>

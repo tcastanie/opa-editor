@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
+import { editorUploadText } from '~/utils/i18n/editor-strings'
+import { wysiwygMediaPopoverText } from '~/utils/i18n/wysiwyg-strings'
 
 /**
  * `customImage`, `customVideo` et `customAudio` du manifeste : un seul popover,
@@ -69,7 +71,7 @@ async function onFileChange(file: File | File[] | null | undefined) {
       <div class="flex flex-col gap-3">
         <UFormField
           :label="preset.fieldLabel"
-          hint="Optionnel"
+          :hint="wysiwygMediaPopoverText.optionalHint"
           size="sm"
         >
           <UInput
@@ -96,8 +98,8 @@ async function onFileChange(file: File | File[] | null | undefined) {
           icon="i-tabler-plug"
           color="neutral"
           variant="subtle"
-          title="Aucun stockage branché"
-          description="Le fichier reçoit une URL locale temporaire. Passez `on-upload` à l'éditeur pour utiliser votre backend."
+          :title="editorUploadText.noStorageTitle"
+          :description="editorUploadText.noStorageDescription"
           :ui="{ title: 'text-xs font-medium', description: 'text-xs' }"
         />
       </div>

@@ -1,4 +1,5 @@
 import type { EditorUploadResult } from '~/composables/useEditorUpload'
+import { editorMediaText } from '~/utils/i18n/editor-strings'
 
 /**
  * Descripteurs des médias insérables (image, vidéo, audio).
@@ -41,48 +42,27 @@ export const editorMediaPresets = {
     node: 'image',
     uploadNode: 'imageUpload',
     uploadDataType: 'image-upload',
-    label: 'Image',
-    insertLabel: 'Insérer une image',
-    downloadLabel: 'Télécharger l\'image',
-    uploadLabel: 'Envoyer une image',
-    dropLabel: 'Déposez une image ou cliquez',
     icon: 'i-tabler-photo',
     accept: 'image/*',
-    formats: 'SVG, PNG, JPG ou GIF',
-    fieldLabel: 'Texte alternatif',
-    fieldPlaceholder: 'Description de l\'image',
+    ...editorMediaText.image,
   },
   video: {
     kind: 'video',
     node: 'video',
     uploadNode: 'videoUpload',
     uploadDataType: 'video-upload',
-    label: 'Vidéo',
-    insertLabel: 'Insérer une vidéo',
-    downloadLabel: 'Télécharger la vidéo',
-    uploadLabel: 'Envoyer une vidéo',
-    dropLabel: 'Déposez une vidéo ou cliquez',
     icon: 'i-tabler-video',
     accept: 'video/*',
-    formats: 'MP4, WebM ou Ogg',
-    fieldLabel: 'Titre',
-    fieldPlaceholder: 'Description de la vidéo',
+    ...editorMediaText.video,
   },
   audio: {
     kind: 'audio',
     node: 'audio',
     uploadNode: 'audioUpload',
     uploadDataType: 'audio-upload',
-    label: 'Audio',
-    insertLabel: 'Insérer un audio',
-    downloadLabel: 'Télécharger l\'audio',
-    uploadLabel: 'Envoyer un fichier audio',
-    dropLabel: 'Déposez un fichier audio ou cliquez',
     icon: 'i-tabler-music',
     accept: 'audio/*',
-    formats: 'MP3, WAV ou Ogg',
-    fieldLabel: 'Titre',
-    fieldPlaceholder: 'Description de l\'audio',
+    ...editorMediaText.audio,
   },
 } as const satisfies Record<EditorMediaKind, EditorMediaPreset>
 

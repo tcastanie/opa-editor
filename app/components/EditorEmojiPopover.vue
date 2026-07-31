@@ -2,6 +2,7 @@
 import type { Editor } from '@tiptap/vue-3'
 import type { Emoji } from 'vue-frimousse'
 import EmojiPicker from 'vue-frimousse'
+import { editorEmojiPopoverText } from '~/utils/i18n/editor-strings'
 
 /**
  * Sélecteur d'émojis bâti sur `vue-frimousse`.
@@ -60,7 +61,7 @@ defineExpose({ openAtCaret })
     :reference="reference"
     :ui="{ content: 'p-0 overflow-hidden' }"
   >
-    <UTooltip text="Émoji">
+    <UTooltip :text="editorEmojiPopoverText.tooltip">
       <UButton
         icon="i-tabler-mood-smile"
         color="neutral"
@@ -70,7 +71,7 @@ defineExpose({ openAtCaret })
         :size="size"
         :active="open"
         :disabled="disabled"
-        aria-label="Émoji"
+        :aria-label="editorEmojiPopoverText.tooltip"
         @click="reference = undefined"
       />
     </UTooltip>
@@ -84,17 +85,17 @@ defineExpose({ openAtCaret })
         >
           <EmojiPicker.Search
             class="shrink-0 m-1.5 px-2.5 py-1.5 text-sm rounded-md bg-elevated/50 text-default ring ring-inset ring-accented placeholder:text-dimmed focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
-            placeholder="Rechercher un émoji…"
+            :placeholder="editorEmojiPopoverText.searchPlaceholder"
           />
 
           <EmojiPicker.Viewport class="relative flex-1 px-1.5 focus:outline-none">
             <EmojiPicker.Loading class="absolute inset-0 flex items-center justify-center text-sm text-muted">
-              Chargement…
+              {{ editorEmojiPopoverText.loading }}
             </EmojiPicker.Loading>
 
             <EmojiPicker.Empty class="absolute inset-0 flex items-center justify-center px-4 text-sm text-center text-muted">
               <template #default="{ search }">
-                Aucun émoji pour « {{ search }} ».
+                {{ editorEmojiPopoverText.empty(search) }}
               </template>
             </EmojiPicker.Empty>
 

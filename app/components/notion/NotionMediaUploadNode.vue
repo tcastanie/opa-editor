@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { NodeViewProps } from '@tiptap/vue-3'
 import { NodeViewWrapper } from '@tiptap/vue-3'
+import { editorUploadText } from '~/utils/i18n/editor-strings'
 
 const { editor, node, getPos } = defineProps<NodeViewProps>()
 
@@ -49,7 +50,7 @@ async function onFileChange(file: File | File[] | null | undefined) {
     <UFileUpload
       :accept="preset.accept"
       :label="preset.uploadLabel"
-      :description="error ?? (isConfigured ? preset.formats : 'Aucun stockage branché')"
+      :description="error ?? (isConfigured ? preset.formats : editorUploadText.noStorageTitle)"
       :preview="false"
       :multiple="false"
       class="min-h-48"

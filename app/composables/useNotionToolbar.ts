@@ -1,17 +1,18 @@
 import type { EditorToolbarItem, EditorCustomHandlers } from '@nuxt/ui'
 import type { Editor } from '@tiptap/vue-3'
+import { notionBlockTypeLabels, notionToolbarText } from '~/utils/i18n/notion-strings'
 
 export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers?: T) {
   const toolbarItems: EditorToolbarItem<T>[][] = [[{
     'kind': 'undo',
     'icon': 'i-tabler-arrow-back-up',
-    'tooltip': { text: 'Annuler' },
-    'aria-label': 'Annuler',
+    'tooltip': { text: notionToolbarText.undo },
+    'aria-label': notionToolbarText.undo,
   }, {
     'kind': 'redo',
     'icon': 'i-tabler-arrow-forward-up',
-    'tooltip': { text: 'Rétablir' },
-    'aria-label': 'Rétablir',
+    'tooltip': { text: notionToolbarText.redo },
+    'aria-label': notionToolbarText.redo,
   }], [{
     // Panneau branché dans `NotionEditor.vue`, comme le lien de la barre flottante.
     slot: 'emoji' as const,
@@ -38,103 +39,103 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
     'tooltip': { text: editorYoutubePreset.insertLabel },
   }, {
     'icon': 'i-tabler-clock-plus',
-    'tooltip': { text: 'Insérer date/heure' },
-    'aria-label': 'Date/heure',
+    'tooltip': { text: notionToolbarText.insertDateTime },
+    'aria-label': notionToolbarText.dateTime,
     'content': { align: 'end' },
     'items': [dateTimeMenuItems().map(item => ({ kind: 'dateTime' as const, ...item }))],
   }], [{
     'kind': 'sourceCode',
-    'aria-label': 'Code source',
+    'aria-label': notionToolbarText.sourceCode,
     'icon': 'i-tabler-html',
-    'tooltip': { text: 'Voir le code source' },
+    'tooltip': { text: notionToolbarText.viewSourceCode },
   }]]
 
   const bubbleToolbarItems: EditorToolbarItem<T>[][] = [[{
-    label: 'Transformer en',
+    label: notionToolbarText.transformInto,
     trailingIcon: 'i-tabler-chevron-down',
     activeColor: 'neutral',
     activeVariant: 'ghost',
-    tooltip: { text: 'Transformer en' },
+    tooltip: { text: notionToolbarText.transformInto },
     content: { align: 'start' },
     ui: { label: 'text-xs' },
     items: [{
       type: 'label',
-      label: 'Transformer en',
+      label: notionToolbarText.transformInto,
     }, {
       kind: 'paragraph',
-      label: 'Paragraphe',
+      label: notionBlockTypeLabels.paragraph,
       icon: 'i-tabler-pilcrow',
     }, {
       kind: 'heading',
       level: 1,
-      label: 'Titre 1',
+      label: notionBlockTypeLabels.heading1,
       icon: 'i-tabler-h-1',
     }, {
       kind: 'heading',
       level: 2,
-      label: 'Titre 2',
+      label: notionBlockTypeLabels.heading2,
       icon: 'i-tabler-h-2',
     }, {
       kind: 'heading',
       level: 3,
-      label: 'Titre 3',
+      label: notionBlockTypeLabels.heading3,
       icon: 'i-tabler-h-3',
     }, {
       kind: 'heading',
       level: 4,
-      label: 'Titre 4',
+      label: notionBlockTypeLabels.heading4,
       icon: 'i-tabler-h-4',
     }, {
       kind: 'bulletList',
-      label: 'Liste à puces',
+      label: notionBlockTypeLabels.bulletList,
       icon: 'i-tabler-list',
     }, {
       kind: 'orderedList',
-      label: 'Liste numérotée',
+      label: notionBlockTypeLabels.orderedList,
       icon: 'i-tabler-list-numbers',
     }, {
       kind: 'taskList',
-      label: 'Liste de tâches',
+      label: notionBlockTypeLabels.taskList,
       icon: 'i-tabler-list-check',
     }, {
       kind: 'blockquote',
-      label: 'Citation',
+      label: notionBlockTypeLabels.blockquote,
       icon: 'i-tabler-quote',
     }, {
       kind: 'codeBlock',
-      label: 'Bloc de code',
+      label: notionBlockTypeLabels.codeBlock,
       icon: 'i-tabler-codeblock',
     }],
   }], [{
     'kind': 'mark',
     'mark': 'bold',
     'icon': 'i-tabler-bold',
-    'tooltip': { text: 'Gras' },
-    'aria-label': 'Gras',
+    'tooltip': { text: notionToolbarText.bold },
+    'aria-label': notionToolbarText.bold,
   }, {
     'kind': 'mark',
     'mark': 'italic',
     'icon': 'i-tabler-italic',
-    'tooltip': { text: 'Italique' },
-    'aria-label': 'Italique',
+    'tooltip': { text: notionToolbarText.italic },
+    'aria-label': notionToolbarText.italic,
   }, {
     'kind': 'mark',
     'mark': 'underline',
     'icon': 'i-tabler-underline',
-    'tooltip': { text: 'Souligné' },
-    'aria-label': 'Souligné',
+    'tooltip': { text: notionToolbarText.underline },
+    'aria-label': notionToolbarText.underline,
   }, {
     'kind': 'mark',
     'mark': 'strike',
     'icon': 'i-tabler-strikethrough',
-    'tooltip': { text: 'Barré' },
-    'aria-label': 'Barré',
+    'tooltip': { text: notionToolbarText.strikethrough },
+    'aria-label': notionToolbarText.strikethrough,
   }, {
     'kind': 'mark',
     'mark': 'code',
     'icon': 'i-tabler-code',
-    'tooltip': { text: 'Code' },
-    'aria-label': 'Code',
+    'tooltip': { text: notionToolbarText.code },
+    'aria-label': notionToolbarText.code,
   }], [{
     slot: 'link' as const,
     icon: 'i-tabler-link',
@@ -197,13 +198,13 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
             'icon': 'i-tabler-download',
             'to': node?.attrs?.src,
             'download': true,
-            'tooltip': { text: 'Télécharger' },
-            'aria-label': 'Télécharger',
+            'tooltip': { text: notionToolbarText.download },
+            'aria-label': notionToolbarText.download,
           },
       {
         'icon': 'i-tabler-refresh',
-        'tooltip': { text: 'Remplacer' },
-        'aria-label': 'Remplacer',
+        'tooltip': { text: notionToolbarText.replace },
+        'aria-label': notionToolbarText.replace,
         'onClick': () => {
           const selected = selectedMedia()
           const placeholder = placeholderOf(selected?.node.type.name)
@@ -217,8 +218,8 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
         },
       }], [{
       'icon': 'i-tabler-trash',
-      'tooltip': { text: 'Supprimer' },
-      'aria-label': 'Supprimer',
+      'tooltip': { text: notionToolbarText.delete },
+      'aria-label': notionToolbarText.delete,
       'onClick': () => {
         const selected = selectedMedia()
 
@@ -231,38 +232,38 @@ export function useNotionToolbar<T extends EditorCustomHandlers>(_customHandlers
 
   const getTableToolbarItems = (editor: Editor): EditorToolbarItem<T>[][] => [[{
     'icon': 'i-tabler-row-insert-top',
-    'tooltip': { text: 'Ligne au-dessus' },
-    'aria-label': 'Ligne au-dessus',
+    'tooltip': { text: notionToolbarText.rowAbove },
+    'aria-label': notionToolbarText.rowAbove,
     'onClick': () => editor.chain().focus().addRowBefore().run(),
   }, {
     'icon': 'i-tabler-row-insert-bottom',
-    'tooltip': { text: 'Ligne en dessous' },
-    'aria-label': 'Ligne en dessous',
+    'tooltip': { text: notionToolbarText.rowBelow },
+    'aria-label': notionToolbarText.rowBelow,
     'onClick': () => editor.chain().focus().addRowAfter().run(),
   }, {
     'icon': 'i-tabler-column-insert-left',
-    'tooltip': { text: 'Colonne avant' },
-    'aria-label': 'Colonne avant',
+    'tooltip': { text: notionToolbarText.columnBefore },
+    'aria-label': notionToolbarText.columnBefore,
     'onClick': () => editor.chain().focus().addColumnBefore().run(),
   }, {
     'icon': 'i-tabler-column-insert-right',
-    'tooltip': { text: 'Colonne après' },
-    'aria-label': 'Colonne après',
+    'tooltip': { text: notionToolbarText.columnAfter },
+    'aria-label': notionToolbarText.columnAfter,
     'onClick': () => editor.chain().focus().addColumnAfter().run(),
   }], [{
     'icon': 'i-tabler-row-remove',
-    'tooltip': { text: 'Supprimer la ligne' },
-    'aria-label': 'Supprimer la ligne',
+    'tooltip': { text: notionToolbarText.deleteRow },
+    'aria-label': notionToolbarText.deleteRow,
     'onClick': () => editor.chain().focus().deleteRow().run(),
   }, {
     'icon': 'i-tabler-column-remove',
-    'tooltip': { text: 'Supprimer la colonne' },
-    'aria-label': 'Supprimer la colonne',
+    'tooltip': { text: notionToolbarText.deleteColumn },
+    'aria-label': notionToolbarText.deleteColumn,
     'onClick': () => editor.chain().focus().deleteColumn().run(),
   }], [{
     'icon': 'i-tabler-trash',
-    'tooltip': { text: 'Supprimer le tableau' },
-    'aria-label': 'Supprimer le tableau',
+    'tooltip': { text: notionToolbarText.deleteTable },
+    'aria-label': notionToolbarText.deleteTable,
     'onClick': () => editor.chain().focus().deleteTable().run(),
   }]]
 

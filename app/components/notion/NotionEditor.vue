@@ -9,6 +9,7 @@ import { CustomAudio, CustomVideo } from '~/utils/tiptap/media'
 import { CustomYoutube } from '~/utils/tiptap/youtube'
 import { mediaUploadExtensions } from './MediaUploadExtension'
 import { YoutubeEmbed } from './YoutubeEmbedExtension'
+import { notionEditorText } from '~/utils/i18n/notion-strings'
 
 /**
  * Ce composant, ses frères du dossier `notion/`, les composables `useNotion*`
@@ -16,7 +17,7 @@ import { YoutubeEmbed } from './YoutubeEmbedExtension'
  * `EditorEmojiPopover`, `app/utils/date-time.ts`) suffisent à le porter dans un
  * autre projet.
  */
-const { onUpload, mentions = [], placeholder = 'Écrivez, ou tapez « / » pour les commandes…' } = defineProps<{
+const { onUpload, mentions = [], placeholder = notionEditorText.placeholder } = defineProps<{
   /** Point d'extension pour l'envoi de fichiers. Voir `useEditorUpload`. */
   onUpload?: EditorUploadHandler
   mentions?: EditorMentionMenuItem[]
@@ -204,7 +205,7 @@ const extensions = [
         color="neutral"
         variant="ghost"
         size="sm"
-        aria-label="Insérer un bloc"
+        :aria-label="notionEditorText.insertBlock"
         :class="ui.handle()"
         @click="(e: MouseEvent) => {
           e.stopPropagation()
@@ -227,7 +228,7 @@ const extensions = [
           active-variant="soft"
           size="sm"
           icon="i-tabler-grip-vertical"
-          aria-label="Options du bloc"
+          :aria-label="notionEditorText.blockOptions"
           :active="open"
           :class="ui.handle()"
         />

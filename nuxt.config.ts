@@ -31,6 +31,7 @@ export default defineNuxtConfig({
         '@tiptap/extension-table',
         '@tiptap/extension-text-align',
         '@tiptap/extension-text-style',
+        '@tiptap/extension-youtube',
         '@tiptap/pm/model',
         '@tiptap/pm/tables',
         '@tiptap/vue-3',

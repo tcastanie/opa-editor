@@ -1,3 +1,5 @@
+import { wysiwygFontSizeText, wysiwygToolbarText } from '~/utils/i18n/wysiwyg-strings'
+
 /**
  * Ce fichier ne contient que des **données** : les groupes, leur priorité et
  * leur épinglage, et les tailles de police. La construction des items de barre
@@ -36,8 +38,8 @@ export const wysiwygToolbarGroups: WysiwygToolbarGroup[] = [
   { id: 'format', priority: 90, pinned: true, keys: ['bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript'] },
   { id: 'style', priority: 70, pinned: true, keys: ['fontsize', 'forecolor', 'backcolor'] },
   // { id: 'heading', priority: 62, keys: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },
-  { id: 'heading', priority: 62, pinned: true, popover: true, icon: 'i-tabler-heading', label: 'Titres', keys: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },
-  { id: 'align', priority: 60, pinned: true, popover: true, icon: 'i-tabler-align-left', label: 'Alignement', keys: ['alignleft', 'aligncenter', 'alignright', 'alignjustify', 'alignnone'] },
+  { id: 'heading', priority: 62, pinned: true, popover: true, icon: 'i-tabler-heading', label: wysiwygToolbarText.headingGroup, keys: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] },
+  { id: 'align', priority: 60, pinned: true, popover: true, icon: 'i-tabler-align-left', label: wysiwygToolbarText.alignGroup, keys: ['alignleft', 'aligncenter', 'alignright', 'alignjustify', 'alignnone'] },
   { id: 'block', priority: 60, keys: ['blockquote', 'hr'] },
   { id: 'list', priority: 55, pinned: true, keys: ['numlist', 'bullist', 'indent', 'outdent'] },
   { id: 'insert', priority: 50, keys: ['customLink', 'unlink', 'customImage', 'customVideo', 'customAudio', 'customYoutube', 'emoji', 'table', 'insertdatetime'] },
@@ -71,7 +73,7 @@ export interface FontOption {
 export const fontSizes: FontOption[] = [
   { label: '12', value: '12px' },
   { label: '14', value: '14px' },
-  { label: '16', value: null, description: 'Par défaut' },
+  { label: '16', value: null, description: wysiwygFontSizeText.default },
   { label: '18', value: '18px' },
   { label: '24', value: '24px' },
   { label: '30', value: '30px' },

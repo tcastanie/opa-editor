@@ -25,7 +25,7 @@ const templates = [{
         <template #title>
           <span class="inline-flex rounded-2xl dark:bg-black px-8 py-6 ring ring-primary/20 shadow-[0_0_80px_-20px] shadow-primary/50">
             <img
-              src="/opa-editor-logo.jpg"
+              src="/logo.webp"
               alt="OPA Editor"
               width="512"
               height="352"

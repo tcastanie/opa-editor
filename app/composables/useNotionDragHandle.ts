@@ -2,30 +2,11 @@ import { upperFirst } from 'scule'
 import type { DropdownMenuItem, EditorCustomHandlers } from '@nuxt/ui'
 import type { Editor, JSONContent } from '@tiptap/vue-3'
 import { mapEditorItems } from '@nuxt/ui/utils/editor'
+import { notionBlockTypeLabels, notionDragHandleText } from '~/utils/i18n/notion-strings'
 
 const CONVERTIBLE_TYPES = ['paragraph', 'heading', 'bulletList', 'orderedList', 'taskList', 'blockquote', 'codeBlock', 'listItem', 'taskItem']
 
-const TYPE_LABELS: Record<string, string> = {
-  paragraph: 'Paragraphe',
-  heading: 'Titre',
-  bulletList: 'Liste à puces',
-  orderedList: 'Liste numérotée',
-  taskList: 'Liste de tâches',
-  listItem: 'Élément de liste',
-  taskItem: 'Tâche',
-  blockquote: 'Citation',
-  codeBlock: 'Bloc de code',
-  image: 'Image',
-  imageUpload: 'Envoi d\'image',
-  video: 'Vidéo',
-  videoUpload: 'Envoi de vidéo',
-  audio: 'Audio',
-  audioUpload: 'Envoi de fichier audio',
-  youtube: 'Vidéo YouTube',
-  youtubeEmbed: 'Lien YouTube',
-  table: 'Tableau',
-  horizontalRule: 'Séparateur',
-}
+const TYPE_LABELS: Record<string, string> = notionDragHandleText.typeLabels
 
 /** Menu de la poignée de déplacement (à gauche de chaque bloc). */
 export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandlers?: T) {
@@ -36,24 +17,24 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
 
     if (CONVERTIBLE_TYPES.includes(nodeType)) {
       return [{
-        label: 'Transformer en',
+        label: notionDragHandleText.transformInto,
         icon: 'i-tabler-repeat',
         children: [
-          { kind: 'paragraph', label: 'Paragraphe', icon: 'i-tabler-pilcrow' },
-          { kind: 'heading', level: 1, label: 'Titre 1', icon: 'i-tabler-h-1' },
-          { kind: 'heading', level: 2, label: 'Titre 2', icon: 'i-tabler-h-2' },
-          { kind: 'heading', level: 3, label: 'Titre 3', icon: 'i-tabler-h-3' },
-          { kind: 'heading', level: 4, label: 'Titre 4', icon: 'i-tabler-h-4' },
-          { kind: 'bulletList', label: 'Liste à puces', icon: 'i-tabler-list' },
-          { kind: 'orderedList', label: 'Liste numérotée', icon: 'i-tabler-list-numbers' },
-          { kind: 'taskList', label: 'Liste de tâches', icon: 'i-tabler-list-check' },
-          { kind: 'blockquote', label: 'Citation', icon: 'i-tabler-quote' },
-          { kind: 'codeBlock', label: 'Bloc de code', icon: 'i-tabler-codeblock' },
+          { kind: 'paragraph', label: notionBlockTypeLabels.paragraph, icon: 'i-tabler-pilcrow' },
+          { kind: 'heading', level: 1, label: notionBlockTypeLabels.heading1, icon: 'i-tabler-h-1' },
+          { kind: 'heading', level: 2, label: notionBlockTypeLabels.heading2, icon: 'i-tabler-h-2' },
+          { kind: 'heading', level: 3, label: notionBlockTypeLabels.heading3, icon: 'i-tabler-h-3' },
+          { kind: 'heading', level: 4, label: notionBlockTypeLabels.heading4, icon: 'i-tabler-h-4' },
+          { kind: 'bulletList', label: notionBlockTypeLabels.bulletList, icon: 'i-tabler-list' },
+          { kind: 'orderedList', label: notionBlockTypeLabels.orderedList, icon: 'i-tabler-list-numbers' },
+          { kind: 'taskList', label: notionBlockTypeLabels.taskList, icon: 'i-tabler-list-check' },
+          { kind: 'blockquote', label: notionBlockTypeLabels.blockquote, icon: 'i-tabler-quote' },
+          { kind: 'codeBlock', label: notionBlockTypeLabels.codeBlock, icon: 'i-tabler-codeblock' },
         ],
       }, {
         kind: 'clearFormatting',
         pos,
-        label: 'Réinitialiser le formatage',
+        label: notionDragHandleText.resetFormatting,
         icon: 'i-tabler-rotate',
       }]
     }
@@ -84,7 +65,7 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
 
     if (nodeType === 'table') {
       return [{
-        label: 'Vider le tableau',
+        label: notionDragHandleText.clearTable,
         icon: 'i-tabler-square-x',
         onSelect: () => {
           if (pos === undefined) return
@@ -127,9 +108,9 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
       { type: 'label', label: TYPE_LABELS[nodeType] ?? upperFirst(nodeType) },
       ...getTypeSpecificItems(editor, nodeType),
     ], [
-      { kind: 'duplicate', pos, label: 'Dupliquer', icon: 'i-tabler-copy' },
+      { kind: 'duplicate', pos, label: notionDragHandleText.duplicate, icon: 'i-tabler-copy' },
       {
-        label: 'Copier dans le presse-papiers',
+        label: notionDragHandleText.copyToClipboard,
         icon: 'i-tabler-clipboard',
         onSelect: async () => {
           const node = editor.state.doc.nodeAt(pos)
@@ -139,10 +120,10 @@ export function useNotionDragHandle<T extends EditorCustomHandlers>(customHandle
         },
       },
     ], [
-      { kind: 'moveUp', pos, label: 'Monter', icon: 'i-tabler-arrow-up' },
-      { kind: 'moveDown', pos, label: 'Descendre', icon: 'i-tabler-arrow-down' },
+      { kind: 'moveUp', pos, label: notionDragHandleText.moveUp, icon: 'i-tabler-arrow-up' },
+      { kind: 'moveDown', pos, label: notionDragHandleText.moveDown, icon: 'i-tabler-arrow-down' },
     ], [
-      { kind: 'delete', pos, label: 'Supprimer', icon: 'i-tabler-trash' },
+      { kind: 'delete', pos, label: notionDragHandleText.delete, icon: 'i-tabler-trash' },
     ]], customHandlers) as DropdownMenuItem[][]
   }
 

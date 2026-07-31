@@ -1,4 +1,5 @@
 import { getEmbedUrlFromYoutubeUrl, isValidYoutubeUrl } from '@tiptap/extension-youtube'
+import { editorYoutubeText } from '~/utils/i18n/editor-strings'
 
 /**
  * Pendant de `editorMediaPresets` pour un média qui n'est **pas** un fichier :
@@ -13,17 +14,8 @@ export const editorYoutubePreset = {
   embedNode: 'youtubeEmbed',
   /** `data-type` sous lequel la saisie d'URL se sérialise en HTML. */
   embedDataType: 'youtube-embed',
-  label: 'Vidéo YouTube',
-  /** Libellé d'action des barres d'outils. */
-  insertLabel: 'Insérer une vidéo YouTube',
-  /** Libellé du bloc de saisie du template notion. */
-  embedLabel: 'Collez le lien d\'une vidéo YouTube',
-  openLabel: 'Ouvrir sur YouTube',
   icon: 'i-tabler-brand-youtube',
-  formats: 'youtube.com ou youtu.be',
-  placeholder: 'https://www.youtube.com/watch?v=…',
-  /** Message affiché quand le lien collé n'est pas exploitable. */
-  invalidMessage: 'Ce lien n\'est pas une vidéo YouTube.',
+  ...editorYoutubeText,
 } as const
 
 /**

@@ -1,3 +1,5 @@
+import { editorUploadText } from '~/utils/i18n/editor-strings'
+
 export interface EditorUploadResult {
   src: string
   alt?: string
@@ -21,10 +23,7 @@ export type EditorUploadHandler = (file: File) => EditorUploadResult | string | 
  */
 export const defaultUploadHandler: EditorUploadHandler = (file) => {
   if (import.meta.dev) {
-    console.warn(
-      '[opa-editor] Aucun gestionnaire d\'upload fourni : utilisation d\'une URL d\'objet locale, non persistée.\n'
-      + 'Passez `:on-upload="votreFonction"` à l\'éditeur pour brancher votre stockage.',
-    )
+    console.warn(editorUploadText.noHandlerWarning)
   }
 
   return {
@@ -55,7 +54,7 @@ export function useEditorUpload(handler?: MaybeRefOrGetter<EditorUploadHandler |
       return typeof result === 'string' ? { src: result } : result
     }
     catch (e) {
-      error.value = e instanceof Error ? e.message : 'Échec de l\'envoi du fichier.'
+      error.value = e instanceof Error ? e.message : editorUploadText.uploadError
       return null
     }
     finally {

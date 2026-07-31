@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
+import { editorSourceCodeModalText } from '~/utils/i18n/editor-strings'
 
 /**
  * Édition du HTML brut, partagée par les deux éditeurs (`code` du manifeste
@@ -36,8 +37,8 @@ function apply() {
 <template>
   <UModal
     v-model:open="open"
-    title="Code source"
-    description="Modifiez le HTML du document. Les balises inconnues du schéma de l'éditeur seront écartées."
+    :title="editorSourceCodeModalText.title"
+    :description="editorSourceCodeModalText.description"
     :ui="{ content: 'max-w-3xl' }"
   >
     <template #body>
@@ -55,13 +56,13 @@ function apply() {
     <template #footer>
       <div class="flex justify-end gap-2 w-full">
         <UButton
-          label="Annuler"
+          :label="editorSourceCodeModalText.cancel"
           color="neutral"
           variant="ghost"
           @click="open = false"
         />
         <UButton
-          label="Appliquer"
+          :label="editorSourceCodeModalText.apply"
           icon="i-tabler-check"
           @click="apply"
         />

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
+import { wysiwygColorMenuText } from '~/utils/i18n/wysiwyg-strings'
 
 /**
  * Équivalent du `ColorMenu` du manifeste : nuancier + sélecteur libre, pour la
@@ -104,11 +105,11 @@ function unsetColor() {
               class="size-5 rounded border-0 bg-transparent p-0 cursor-pointer"
               @input="setColor(($event.target as HTMLInputElement).value)"
             >
-            <span class="text-muted">Personnalisée</span>
+            <span class="text-muted">{{ wysiwygColorMenuText.customLabel }}</span>
           </label>
 
           <UButton
-            label="Aucune"
+            :label="wysiwygColorMenuText.noneLabel"
             icon="i-tabler-slash"
             color="neutral"
             variant="ghost"

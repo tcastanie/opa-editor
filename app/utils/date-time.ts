@@ -1,10 +1,12 @@
+import { editorDateTimeLabels } from '~/utils/i18n/editor-strings'
+
 /** Formats proposés par l'insertion de date/heure, partagés par les deux éditeurs. */
 export const dateTimeFormats = [
-  { label: 'Date courte', format: (d: Date) => d.toLocaleDateString('fr-FR') },
-  { label: 'Date longue', format: (d: Date) => d.toLocaleDateString('fr-FR', { dateStyle: 'full' }) },
-  { label: 'Heure', format: (d: Date) => d.toLocaleTimeString('fr-FR', { timeStyle: 'short' }) },
-  { label: 'Date et heure', format: (d: Date) => d.toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' }) },
-  { label: 'ISO 8601', format: (d: Date) => d.toISOString() },
+  { label: editorDateTimeLabels[0], format: (d: Date) => d.toLocaleDateString('fr-FR') },
+  { label: editorDateTimeLabels[1], format: (d: Date) => d.toLocaleDateString('fr-FR', { dateStyle: 'full' }) },
+  { label: editorDateTimeLabels[2], format: (d: Date) => d.toLocaleTimeString('fr-FR', { timeStyle: 'short' }) },
+  { label: editorDateTimeLabels[3], format: (d: Date) => d.toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' }) },
+  { label: editorDateTimeLabels[4], format: (d: Date) => d.toISOString() },
 ] as const
 
 export type DateTimeFormat = (typeof dateTimeFormats)[number]

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
+import { editorLinkPopoverText } from '~/utils/i18n/editor-strings'
+import { notionLinkPopoverText } from '~/utils/i18n/notion-strings'
 
 const { editor } = defineProps<{
   editor: Editor
@@ -75,7 +77,7 @@ function openLink() {
     v-model:open="open"
     :ui="{ content: 'p-0.5' }"
   >
-    <UTooltip text="Lien">
+    <UTooltip :text="notionLinkPopoverText.tooltip">
       <UButton
         icon="i-tabler-link"
         color="neutral"
@@ -85,7 +87,7 @@ function openLink() {
         size="sm"
         :active="active"
         :disabled="disabled"
-        aria-label="Lien"
+        :aria-label="notionLinkPopoverText.tooltip"
       />
     </UTooltip>
 
@@ -96,7 +98,7 @@ function openLink() {
         name="url"
         type="url"
         variant="none"
-        placeholder="Collez un lien…"
+        :placeholder="editorLinkPopoverText.placeholder"
         @keydown.enter.prevent="setLink"
       >
         <div class="flex items-center mr-0.5">
@@ -105,7 +107,7 @@ function openLink() {
             variant="ghost"
             size="sm"
             :disabled="!url && !active"
-            title="Appliquer le lien"
+            :title="editorLinkPopoverText.applyTitle"
             @click="setLink"
           />
 
@@ -120,7 +122,7 @@ function openLink() {
             variant="ghost"
             size="sm"
             :disabled="!url && !active"
-            title="Ouvrir dans un nouvel onglet"
+            :title="notionLinkPopoverText.openInNewTab"
             @click="openLink"
           />
 
@@ -130,7 +132,7 @@ function openLink() {
             variant="ghost"
             size="sm"
             :disabled="!url && !active"
-            title="Supprimer le lien"
+            :title="editorLinkPopoverText.deleteTitle"
             @click="removeLink"
           />
         </div>

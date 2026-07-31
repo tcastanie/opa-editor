@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { EditorToolbarItem } from '@nuxt/ui'
 import type { Editor } from '@tiptap/vue-3'
+import { wysiwygColorMenuText } from '~/utils/i18n/wysiwyg-strings'
 
 /**
  * Barre d'outils fixe du template WYSIWYG. Chaque item du manifeste qui ouvre
@@ -31,7 +32,7 @@ defineProps<{
       <WysiwygColorMenu
         :editor="editor"
         mode="text"
-        label="Couleur du texte"
+        :label="wysiwygColorMenuText.textColorLabel"
         icon="i-tabler-text-color"
       />
     </template>
@@ -40,7 +41,7 @@ defineProps<{
       <WysiwygColorMenu
         :editor="editor"
         mode="background"
-        label="Couleur de fond"
+        :label="wysiwygColorMenuText.backgroundColorLabel"
         icon="i-tabler-highlight"
       />
     </template>

@@ -13,6 +13,7 @@ import { CustomAudio, CustomVideo } from '~/utils/tiptap/media'
 import { PreKeymap } from '~/utils/tiptap/pre-keymap'
 import { PreservedAttributes } from '~/utils/tiptap/preserved-attributes'
 import { CustomYoutube } from '~/utils/tiptap/youtube'
+import { wysiwygEditorText, wysiwygTableText } from '~/utils/i18n/wysiwyg-strings'
 
 /**
  * Éditeur WYSIWYG « barre d'outils classique »
@@ -21,7 +22,7 @@ import { CustomYoutube } from '~/utils/tiptap/youtube'
  * notion (`EditorSourceCodeModal`, `EditorEmojiPopover`,
  * `app/utils/date-time.ts`) suffisent à le porter dans un autre projet.
  */
-const { toolbarKeys = wysiwygToolbarAll, placeholder = 'Rédigez votre contenu…' } = defineProps<{
+const { toolbarKeys = wysiwygToolbarAll, placeholder = wysiwygEditorText.placeholder } = defineProps<{
   /** Boutons affichés, parmi les clés du manifeste. */
   toolbarKeys?: WysiwygButtonKey[]
   /** Point d'extension pour l'envoi de fichiers. Voir `useEditorUpload`. */
@@ -136,17 +137,17 @@ defineExpose({
       <UEditorToolbar
         :editor="editor"
         :items="[[
-          { icon: 'i-tabler-row-insert-top', tooltip: { text: 'Ligne au-dessus' }, onClick: () => editor.chain().focus().addRowBefore().run() },
-          { icon: 'i-tabler-row-insert-bottom', tooltip: { text: 'Ligne en dessous' }, onClick: () => editor.chain().focus().addRowAfter().run() },
-          { icon: 'i-tabler-column-insert-left', tooltip: { text: 'Colonne avant' }, onClick: () => editor.chain().focus().addColumnBefore().run() },
-          { icon: 'i-tabler-column-insert-right', tooltip: { text: 'Colonne après' }, onClick: () => editor.chain().focus().addColumnAfter().run() },
+          { icon: 'i-tabler-row-insert-top', tooltip: { text: wysiwygTableText.rowAbove }, onClick: () => editor.chain().focus().addRowBefore().run() },
+          { icon: 'i-tabler-row-insert-bottom', tooltip: { text: wysiwygTableText.rowBelow }, onClick: () => editor.chain().focus().addRowAfter().run() },
+          { icon: 'i-tabler-column-insert-left', tooltip: { text: wysiwygTableText.columnBefore }, onClick: () => editor.chain().focus().addColumnBefore().run() },
+          { icon: 'i-tabler-column-insert-right', tooltip: { text: wysiwygTableText.columnAfter }, onClick: () => editor.chain().focus().addColumnAfter().run() },
         ], [
-          { icon: 'i-tabler-arrows-join', tooltip: { text: 'Fusionner' }, onClick: () => editor.chain().focus().mergeCells().run() },
-          { icon: 'i-tabler-arrows-split', tooltip: { text: 'Scinder' }, onClick: () => editor.chain().focus().splitCell().run() },
+          { icon: 'i-tabler-arrows-join', tooltip: { text: wysiwygTableText.mergeCells }, onClick: () => editor.chain().focus().mergeCells().run() },
+          { icon: 'i-tabler-arrows-split', tooltip: { text: wysiwygTableText.splitCell }, onClick: () => editor.chain().focus().splitCell().run() },
         ], [
-          { icon: 'i-tabler-row-remove', color: 'warning', tooltip: { text: 'Supprimer la ligne' }, onClick: () => editor.chain().focus().deleteRow().run() },
-          { icon: 'i-tabler-column-remove', color: 'warning', tooltip: { text: 'Supprimer la colonne' }, onClick: () => editor.chain().focus().deleteColumn().run() },
-          { icon: 'i-tabler-trash', color: 'error', tooltip: { text: 'Supprimer le tableau' }, onClick: () => editor.chain().focus().deleteTable().run() },
+          { icon: 'i-tabler-row-remove', color: 'warning', tooltip: { text: wysiwygTableText.deleteRow }, onClick: () => editor.chain().focus().deleteRow().run() },
+          { icon: 'i-tabler-column-remove', color: 'warning', tooltip: { text: wysiwygTableText.deleteColumn }, onClick: () => editor.chain().focus().deleteColumn().run() },
+          { icon: 'i-tabler-trash', color: 'error', tooltip: { text: wysiwygTableText.deleteTable }, onClick: () => editor.chain().focus().deleteTable().run() },
         ]]"
         layout="bubble"
         :should-show="({ editor: current, view }: any) => current.state.selection instanceof CellSelection && view.hasFocus()"
@@ -155,11 +156,11 @@ defineExpose({
       <UEditorToolbar
         :editor="editor"
         :items="[[
-          { icon: 'i-tabler-align-left', tooltip: { text: 'Aligner à gauche' }, onClick: () => editor.chain().focus().setTextAlign('left').run() },
-          { icon: 'i-tabler-align-center', tooltip: { text: 'Centrer' }, onClick: () => editor.chain().focus().setTextAlign('center').run() },
-          { icon: 'i-tabler-align-right', tooltip: { text: 'Aligner à droite' }, onClick: () => editor.chain().focus().setTextAlign('right').run() },
+          { icon: 'i-tabler-align-left', tooltip: { text: wysiwygEditorText.alignLeft }, onClick: () => editor.chain().focus().setTextAlign('left').run() },
+          { icon: 'i-tabler-align-center', tooltip: { text: wysiwygEditorText.alignCenter }, onClick: () => editor.chain().focus().setTextAlign('center').run() },
+          { icon: 'i-tabler-align-right', tooltip: { text: wysiwygEditorText.alignRight }, onClick: () => editor.chain().focus().setTextAlign('right').run() },
         ], [
-          { icon: 'i-tabler-trash', tooltip: { text: 'Supprimer' }, onClick: () => editor.chain().focus().deleteSelection().run() },
+          { icon: 'i-tabler-trash', tooltip: { text: wysiwygEditorText.delete }, onClick: () => editor.chain().focus().deleteSelection().run() },
         ]]"
         layout="bubble"
         :should-show="({ editor: current, view }: any) => current.isActive('image') && view.hasFocus()"
@@ -170,7 +171,7 @@ defineExpose({
       <UEditorToolbar
         :editor="editor"
         :items="[[
-          { icon: 'i-tabler-trash', tooltip: { text: 'Supprimer' }, onClick: () => editor.chain().focus().deleteSelection().run() },
+          { icon: 'i-tabler-trash', tooltip: { text: wysiwygEditorText.delete }, onClick: () => editor.chain().focus().deleteSelection().run() },
         ]]"
         layout="bubble"
         :should-show="({ editor: current, view }: any) => (current.isActive('video') || current.isActive('audio') || current.isActive(editorYoutubePreset.node)) && view.hasFocus()"
@@ -183,7 +184,7 @@ defineExpose({
         class="w-full h-36"
       />
       <template v-else>
-        <span>{{ words }} mot{{ words > 1 ? 's' : '' }} · {{ characters }} caractère{{ characters > 1 ? 's' : '' }}</span>
+        <span>{{ wysiwygEditorText.wordsCount(words) }} · {{ wysiwygEditorText.charactersCount(characters) }}</span>
 
         <span
           v-if="fullscreen"
@@ -193,7 +194,7 @@ defineExpose({
             value="escape"
             size="sm"
           />
-          pour quitter le plein écran
+          {{ wysiwygEditorText.exitFullscreen }}
         </span>
       </template>
     </footer>

@@ -1,6 +1,7 @@
 import type { EditorCustomHandlers } from '@nuxt/ui'
 import type { Editor } from '@tiptap/vue-3'
 import { DOMSerializer } from '@tiptap/pm/model'
+import { wysiwygHandlersText } from '~/utils/i18n/wysiwyg-strings'
 
 const LIST_ITEM_TYPES = ['listItem', 'taskItem']
 
@@ -69,8 +70,8 @@ export function useWysiwygHandlers(options: UseWysiwygHandlersOptions = {}) {
 
   function notifyClipboardFailure() {
     toast.add({
-      title: 'Presse-papiers indisponible',
-      description: 'Le navigateur a refusé l\'accès. Utilisez les raccourcis clavier (Ctrl/⌘ + X, C, V).',
+      title: wysiwygHandlersText.clipboardUnavailableTitle,
+      description: wysiwygHandlersText.clipboardUnavailableDescription,
       color: 'warning',
       icon: 'i-tabler-clipboard-x',
     })

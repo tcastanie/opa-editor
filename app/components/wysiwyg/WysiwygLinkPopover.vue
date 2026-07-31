@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Editor } from '@tiptap/vue-3'
+import { editorLinkPopoverText } from '~/utils/i18n/editor-strings'
+import { wysiwygLinkPopoverText } from '~/utils/i18n/wysiwyg-strings'
 
 /** `customLink` du manifeste : panneau d'édition de lien. */
 const { editor } = defineProps<{
@@ -71,7 +73,7 @@ function removeLink() {
     :modal="false"
     :ui="{ content: 'p-0.5' }"
   >
-    <UTooltip text="Insérer un lien">
+    <UTooltip :text="wysiwygLinkPopoverText.insertTooltip">
       <UButton
         icon="i-tabler-link"
         color="neutral"
@@ -81,7 +83,7 @@ function removeLink() {
         size="sm"
         :active="active"
         :disabled="disabled"
-        aria-label="Insérer un lien"
+        :aria-label="wysiwygLinkPopoverText.insertTooltip"
       />
     </UTooltip>
 
@@ -92,7 +94,7 @@ function removeLink() {
         name="url"
         type="url"
         variant="none"
-        placeholder="Collez un lien…"
+        :placeholder="editorLinkPopoverText.placeholder"
         @keydown.enter.prevent="setLink"
       >
         <div class="flex items-center mr-0.5">
@@ -102,7 +104,7 @@ function removeLink() {
             variant="ghost"
             size="sm"
             :disabled="!url"
-            title="Appliquer le lien"
+            :title="editorLinkPopoverText.applyTitle"
             @click="setLink"
           />
 
@@ -117,7 +119,7 @@ function removeLink() {
             variant="ghost"
             size="sm"
             :disabled="!active"
-            title="Supprimer le lien"
+            :title="editorLinkPopoverText.deleteTitle"
             @click="removeLink"
           />
         </div>
